@@ -87,6 +87,7 @@ namespace CourseWork
             this.ShowAll.TabIndex = 4;
             this.ShowAll.Text = "Показать общую структуру";
             this.ShowAll.UseVisualStyleBackColor = true;
+            this.ShowAll.Click += new System.EventHandler(this.ShowAll_Click);
             // 
             // MainForm
             // 

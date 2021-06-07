@@ -37,7 +37,7 @@ namespace CourseWork
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(270, 122);
+            this.textBox1.Location = new System.Drawing.Point(262, 130);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(282, 39);
             this.textBox1.TabIndex = 15;
@@ -45,7 +45,7 @@ namespace CourseWork
             // Search
             // 
             this.Search.Font = new System.Drawing.Font("Segoe UI", 13.875F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.Search.Location = new System.Drawing.Point(178, 243);
+            this.Search.Location = new System.Drawing.Point(184, 251);
             this.Search.Name = "Search";
             this.Search.Size = new System.Drawing.Size(282, 62);
             this.Search.TabIndex = 13;
@@ -57,7 +57,7 @@ namespace CourseWork
             // 
             this.Login.AutoSize = true;
             this.Login.Font = new System.Drawing.Font("Segoe UI", 13.875F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.Login.Location = new System.Drawing.Point(104, 111);
+            this.Login.Location = new System.Drawing.Point(110, 122);
             this.Login.Name = "Login";
             this.Login.Size = new System.Drawing.Size(133, 50);
             this.Login.TabIndex = 11;

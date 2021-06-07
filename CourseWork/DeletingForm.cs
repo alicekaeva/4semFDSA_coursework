@@ -23,11 +23,9 @@ namespace CourseWork
             DialogResult = DialogResult.OK;
         }
 
-        LA who;
-
         public LA make()
         {
-            who = new LA(textBox1.Text, textBox2.Text);
+            LA who = new LA(textBox1.Text, textBox2.Text);
             return who;
         }
     }

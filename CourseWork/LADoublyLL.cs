@@ -133,16 +133,23 @@ namespace CourseWork
             }
             return false;
         }
-        public bool searchByLogin(string u)
+        public LA searchByLogin(string u)
         {
+            int compare = 0;
             node current = head;
             while (current != null)
             {
-                if (String.Compare(current.data.login, u) == 0) // equal to current.data == x
-                    return true;
+                if (String.Compare(current.data.login, u) == 0)
+                {
+                    compare++;
+                    MessageBox.Show($"Сравнений - {compare}");
+                    return current.data;
+                }
+                compare++;
                 current = current.next;
             }
-            return false;
+            MessageBox.Show($"Сравнений - {compare}");
+            return null;
         }
         public bool checkingLogin(string s)
         {

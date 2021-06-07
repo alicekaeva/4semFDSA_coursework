@@ -15,6 +15,7 @@ namespace CourseWork
     {
         List<LA> userList = new List<LA>();
         LAHashTable UHT = new LAHashTable();
+
         public LAForm()
         {
             InitializeComponent();
@@ -37,32 +38,28 @@ namespace CourseWork
                 }
                 userList.Clear();
             }
-            OpenFileDialog openFile = new OpenFileDialog();
-            if (openFile.ShowDialog() == DialogResult.OK)
+            StreamReader file = null;
+            try
             {
-                StreamReader file = null;
-                try
+                file = new StreamReader("user.txt");
+                String line;
+                UsersGridView.Rows.Clear();
+                while ((line = file.ReadLine()) != null)
                 {
-                    file = new StreamReader(openFile.FileName);
-                    String line;
-                    UsersGridView.Rows.Clear();
-                    while ((line = file.ReadLine()) != null)
-                    {
-                        string[] subs = line.Split('|');
-                        userList.Add(new LA(subs[0], subs[1]));
-                        UHT.add(new LA(subs[0], subs[1]));
-                    }
+                    string[] subs = line.Split('|');
+                    userList.Add(new LA(subs[0], subs[1]));
+                    UHT.add(new LA(subs[0], subs[1]));
                 }
-                catch (Exception)
-                {
-                    MessageBox.Show("Ошибка входных данных");
-                }
-                finally
-                {
-                    file.Close();
-                }
-                for (var i = 0; i < userList.Count; i++) if (userList[i] != null) UsersGridView.Rows.Add(UHT.hashFunc(userList[i]), userList[i].login, userList[i].adress);
             }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка входных данных");
+            }
+            finally
+            {
+                file.Close();
+            }
+            for (var i = 0; i < userList.Count; i++) if (userList[i] != null) UsersGridView.Rows.Add(UHT.hashFunc(userList[i].login), userList[i].login, userList[i].adress);
         }
 
         private void BackToTheMenu_Click(object sender, EventArgs e)
@@ -82,15 +79,21 @@ namespace CourseWork
                 if (UHT.add(a))
                 {
                     MessageBox.Show($"{a.login} был добавлен");
+                    using (StreamWriter sw = File.AppendText("user.txt"))
+                    {
+                        sw.WriteLine($"{a.login}|{a.adress}");
+                        sw.Close();
+                    }
                     userList.Add(a);
                     RefreshDataGrid();
                 }
             }
         }
+
         private void RefreshDataGrid()
         {
             UsersGridView.Rows.Clear();
-            for (var i = 0; i < userList.Count; i++) if (userList[i] != null) UsersGridView.Rows.Add(UHT.hashFunc(userList[i]), userList[i].login, userList[i].adress);
+            for (var i = 0; i < userList.Count; i++) if (userList[i] != null) UsersGridView.Rows.Add(UHT.hashFunc(userList[i].login), userList[i].login, userList[i].adress);
         }
 
         private void deletingButton_Click(object sender, EventArgs e)
@@ -104,6 +107,20 @@ namespace CourseWork
                 if (UHT.delete(b))
                 {
                     MessageBox.Show($"{b.login} был удален");
+                    string tempFile = Path.GetTempFileName();
+                    string whatToDelete = b.login + "|" + b.adress;
+                    using (var sr = new StreamReader("user.txt"))
+                    using (var sw = new StreamWriter(tempFile))
+                    {
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            if (line != whatToDelete)
+                                sw.WriteLine(line);
+                        }
+                    }
+                    File.Delete("user.txt");
+                    File.Move(tempFile, "user.txt");
                     userList.Remove(b);
                     RefreshDataGrid();
                 }
@@ -118,13 +135,14 @@ namespace CourseWork
             if (dialogResult == DialogResult.OK)
             {
                 string c = seaForm.make();
-                UHT.searchByLogin(c);
+                UHT.search(c);
                 for (int i = 0; i < UsersGridView.Rows.Count - 1; i++)
                 {
                     string l = UsersGridView.Rows[i].Cells[1].Value.ToString();
-                    if (l == c.login) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                    if (l == c) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
                 }
             }
         }
+
     }
 }

@@ -19,28 +19,27 @@ namespace CourseWork
                 hashT[i] = new LADoublyLL();
             }
         }
-        public int hashFunc(LA u)
+        public int hashFunc(string u)
         {
             int nx = 0;
-            for (int i = 0; i < u.login.Length; i++)
+            for (int i = 0; i < u.Length; i++)
             {
-                nx += (int)u.login[i];
+                nx += (int)u[i];
             }
-            double A = 0.618033;
-            int index = (int)Math.Floor(n * (A * nx - Math.Floor(A * nx)));
+            int index = nx % n; ;
             return index;
         }
         public bool add(LA u)
         {
-            return hashT[hashFunc(u)].insert(u);
+            return hashT[hashFunc(u.login)].insert(u);
         }
         public bool delete(LA u)
         {
-            return hashT[hashFunc(u)].deleteGivenNode(u);
+            return hashT[hashFunc(u.login)].deleteGivenNode(u);
         }
-        public void searchByLogin(string u)
+        public void search(string u)
         {
-            if (hashT[hashFunc(u)].searchByLogin(u) == false) MessageBox.Show($"{u.login} не был найден");
+            if (hashT[hashFunc(u)].searchByLogin(u) == null) MessageBox.Show($"{u} не был найден");
         }
     }
 }

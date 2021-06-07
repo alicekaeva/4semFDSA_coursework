@@ -4,6 +4,9 @@
     <Compile Update="AddingForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="AllForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="DeletingForm.cs">
       <SubType>Form</SubType>
     </Compile>

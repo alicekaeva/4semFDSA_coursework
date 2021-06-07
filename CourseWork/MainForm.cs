@@ -27,5 +27,16 @@ namespace CourseWork
                 this.Show();
             }
         }
+
+        private void ShowAll_Click(object sender, EventArgs e)
+        {
+            Hide();
+            AllForm addForm = new AllForm();
+            DialogResult dialogResult = addForm.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                this.Show();
+            }
+        }
     }
 }

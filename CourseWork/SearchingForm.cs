@@ -23,11 +23,9 @@ namespace CourseWork
             DialogResult = DialogResult.OK;
         }
 
-        string who;
-
         public string make()
         {
-            who = textBox1.Text;
+            string who = textBox1.Text;
             return who;
         }
     }
