@@ -7,15 +7,15 @@ using System.Windows.Forms;
 
 namespace CourseWork
 {
-    class node
+    public class node
     {
         public LA data;
         public node next;
         public node prev;
     }
-    class LADoublyLL
+    public class LADoublyLL
     {
-        node head;
+        public node head;
 
         public LADoublyLL()
         {
@@ -23,11 +23,7 @@ namespace CourseWork
         }
         public bool insert(LA u)
         {
-            if (search(u))
-            {
-                MessageBox.Show($"{u.login} уже добавлен");
-                return false;
-            }
+            if (search(u)) return false;
             else if (checkingLogin(u.login) && checkingAdress(u.adress) && !(search(u)))
             {
                 node newNode = new node();
@@ -150,6 +146,17 @@ namespace CourseWork
             }
             MessageBox.Show($"Сравнений - {compare}");
             return null;
+        }
+        public int getLength()
+        {
+            node current = head;
+            int len = 0;
+            while (current != null)
+            {
+                len++;
+                current = current.next;
+            }
+            return len;
         }
         public bool checkingLogin(string s)
         {

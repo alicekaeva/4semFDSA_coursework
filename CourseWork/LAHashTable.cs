@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace CourseWork
 {
-    class LAHashTable
+   public class LAHashTable
     {
         static int n = 10;
         LADoublyLL[] hashT;
@@ -37,9 +37,22 @@ namespace CourseWork
         {
             return hashT[hashFunc(u.login)].deleteGivenNode(u);
         }
-        public void search(string u)
+        public void searchByLogin(string u)
         {
             if (hashT[hashFunc(u)].searchByLogin(u) == null) MessageBox.Show($"{u} не был найден");
+        }
+        public bool search(LA u)
+        {
+            if (hashT[hashFunc(u.login)].search(u) == false)
+            {
+                Console.WriteLine($"{u.login} isn't found");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine($"{u.login} is {hashFunc(u.login)}");
+                return true;
+            }
         }
     }
 }

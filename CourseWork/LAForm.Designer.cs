@@ -29,16 +29,16 @@ namespace CourseWork
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LAForm));
             this.UsersGridView = new System.Windows.Forms.DataGridView();
             this.Hash = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Login = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ReadFile = new System.Windows.Forms.Button();
             this.addingButton = new System.Windows.Forms.Button();
-            this.deletingButton = new System.Windows.Forms.Button();
             this.searchingButton = new System.Windows.Forms.Button();
             this.BackToTheMenu = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.UsersGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,21 +79,10 @@ namespace CourseWork
             this.Address.Name = "Address";
             this.Address.Width = 400;
             // 
-            // ReadFile
-            // 
-            this.ReadFile.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.ReadFile.Location = new System.Drawing.Point(69, 166);
-            this.ReadFile.Name = "ReadFile";
-            this.ReadFile.Size = new System.Drawing.Size(234, 86);
-            this.ReadFile.TabIndex = 1;
-            this.ReadFile.Text = "Считать файл";
-            this.ReadFile.UseVisualStyleBackColor = true;
-            this.ReadFile.Click += new System.EventHandler(this.ReadFile_Click);
-            // 
             // addingButton
             // 
             this.addingButton.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.addingButton.Location = new System.Drawing.Point(69, 305);
+            this.addingButton.Location = new System.Drawing.Point(79, 317);
             this.addingButton.Name = "addingButton";
             this.addingButton.Size = new System.Drawing.Size(234, 86);
             this.addingButton.TabIndex = 2;
@@ -101,21 +90,10 @@ namespace CourseWork
             this.addingButton.UseVisualStyleBackColor = true;
             this.addingButton.Click += new System.EventHandler(this.addingButton_Click);
             // 
-            // deletingButton
-            // 
-            this.deletingButton.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.deletingButton.Location = new System.Drawing.Point(69, 443);
-            this.deletingButton.Name = "deletingButton";
-            this.deletingButton.Size = new System.Drawing.Size(234, 86);
-            this.deletingButton.TabIndex = 2;
-            this.deletingButton.Text = "Удалить пользователя";
-            this.deletingButton.UseVisualStyleBackColor = true;
-            this.deletingButton.Click += new System.EventHandler(this.deletingButton_Click);
-            // 
             // searchingButton
             // 
             this.searchingButton.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.searchingButton.Location = new System.Drawing.Point(69, 585);
+            this.searchingButton.Location = new System.Drawing.Point(79, 465);
             this.searchingButton.Name = "searchingButton";
             this.searchingButton.Size = new System.Drawing.Size(234, 86);
             this.searchingButton.TabIndex = 4;
@@ -126,13 +104,19 @@ namespace CourseWork
             // BackToTheMenu
             // 
             this.BackToTheMenu.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.BackToTheMenu.Location = new System.Drawing.Point(69, 731);
+            this.BackToTheMenu.Location = new System.Drawing.Point(79, 611);
             this.BackToTheMenu.Name = "BackToTheMenu";
             this.BackToTheMenu.Size = new System.Drawing.Size(234, 86);
             this.BackToTheMenu.TabIndex = 5;
             this.BackToTheMenu.Text = "Назад в меню";
             this.BackToTheMenu.UseVisualStyleBackColor = true;
             this.BackToTheMenu.Click += new System.EventHandler(this.BackToTheMenu_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // LAForm
             // 
@@ -142,9 +126,7 @@ namespace CourseWork
             this.ClientSize = new System.Drawing.Size(1686, 950);
             this.Controls.Add(this.BackToTheMenu);
             this.Controls.Add(this.searchingButton);
-            this.Controls.Add(this.deletingButton);
             this.Controls.Add(this.addingButton);
-            this.Controls.Add(this.ReadFile);
             this.Controls.Add(this.UsersGridView);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LAForm";
@@ -158,13 +140,13 @@ namespace CourseWork
         #endregion
 
         private System.Windows.Forms.DataGridView UsersGridView;
-        private System.Windows.Forms.Button ReadFile;
         private System.Windows.Forms.DataGridViewTextBoxColumn Hash;
         private System.Windows.Forms.DataGridViewTextBoxColumn Login;
         private System.Windows.Forms.DataGridViewTextBoxColumn Address;
         private System.Windows.Forms.Button addingButton;
-        private System.Windows.Forms.Button deletingButton;
         private System.Windows.Forms.Button searchingButton;
         private System.Windows.Forms.Button BackToTheMenu;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
     }
 }

@@ -17,7 +17,7 @@
 \\Mac\Home\Desktop\Учеба\ФСДА\CourseWork\CourseWork\obj\Debug\net5.0-windows\CourseWork.genruntimeconfig.cache
 \\Mac\Home\Desktop\Учеба\ФСДА\CourseWork\CourseWork\obj\Debug\net5.0-windows\CourseWork.LAForm.resources
 \\Mac\Home\Desktop\Учеба\ФСДА\CourseWork\CourseWork\obj\Debug\net5.0-windows\CourseWork.AddingForm.resources
-\\Mac\Home\Desktop\Учеба\ФСДА\CourseWork\CourseWork\obj\Debug\net5.0-windows\CourseWork.DeletingForm.resources
 \\Mac\Home\Desktop\Учеба\ФСДА\CourseWork\CourseWork\obj\Debug\net5.0-windows\CourseWork.SearchingForm.resources
 \\Mac\Home\Desktop\Учеба\ФСДА\CourseWork\CourseWork\obj\Debug\net5.0-windows\CourseWork.csproj.AssemblyReference.cache
 \\Mac\Home\Desktop\Учеба\ФСДА\CourseWork\CourseWork\obj\Debug\net5.0-windows\CourseWork.AllForm.resources
+\\Mac\Home\Desktop\Учеба\ФСДА\CourseWork\CourseWork\obj\Debug\net5.0-windows\CourseWork.AddingSale.resources

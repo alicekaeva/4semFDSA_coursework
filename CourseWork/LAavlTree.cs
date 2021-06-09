@@ -7,23 +7,23 @@ using System.Windows.Forms;
 
 namespace CourseWork
 {
-    class LAavlTree
+    public class LAavlTree
     {
         public static int compare = 0;
         class Node
         {
-            public Sales data;
-            public int position;
+            public string data;
+            public Sales position;
             public Node left;
             public Node right;
-            public Node(Sales data, int i)
+            public Node(string data, Sales i)
             {
                 this.data = data;
                 this.position = i;
             }
         }
         Node root;
-        public void Add(Sales data, int i)
+        public void Add(string data, Sales i)
         {
             Node newItem = new Node(data, i);
             if (root == null)
@@ -42,12 +42,12 @@ namespace CourseWork
                 current = n;
                 return current;
             }
-            else if (String.Compare(n.data.login, current.data.login) < 0)
+            else if (String.Compare(n.data, current.data) < 0)
             {
                 current.left = RecursiveInsert(current.left, n);
                 current = balance_tree(current);
             }
-            else if (String.Compare(n.data.login, current.data.login) > 0)
+            else if (String.Compare(n.data, current.data) > 0)
             {
                 current.right = RecursiveInsert(current.right, n);
                 current = balance_tree(current);
@@ -81,11 +81,11 @@ namespace CourseWork
             }
             return current;
         }
-        public void Delete(Sales target)
+        public void Delete(string target)
         {//and here
             root = Delete(root, target);
         }
-        private Node Delete(Node current, Sales target)
+        private Node Delete(Node current, string target)
         {
             Node parent;
             if (current == null)
@@ -93,7 +93,7 @@ namespace CourseWork
             else
             {
                 //left subtree
-                if (String.Compare(target.login, current.data.login) < 0)
+                if (String.Compare(target, current.data) < 0)
                 {
                     current.left = Delete(current.left, target);
                     if (balance_factor(current) == -2)//here
@@ -109,7 +109,7 @@ namespace CourseWork
                     }
                 }
                 //right subtree
-                else if (String.Compare(target.login, current.data.login) > 0)
+                else if (String.Compare(target, current.data) > 0)
                 {
                     current.right = Delete(current.right, target);
                     if (balance_factor(current) == 2)
@@ -154,20 +154,29 @@ namespace CourseWork
             }
             return current;
         }
-        public void Find(Sales key)
+        public void Find(string key)
         {
+            if (Find(key, root) == null)
+            {
+                MessageBox.Show($"{key} не был найден");
+                return;
+            }
             if (Find(key, root).data == key)
             {
-                Console.WriteLine("{0} was found!", key.login);
+                Console.WriteLine("{0} was found!", key);
             }
             else
             {
                 Console.WriteLine("Nothing found!");
             }
         }
-        private Node Find(Sales target, Node current)
+        private Node Find(string target, Node current)
         {
-            if (String.Compare(target.login, current.data.login) < 0)
+            if (current == null)
+            {
+                return null;
+            }
+            if (String.Compare(target, current.data) < 0)
             {
                 compare++;
                 if (target == current.data)
@@ -205,7 +214,7 @@ namespace CourseWork
             if (current != null)
             {
                 InOrderDisplayTree(current.left);
-                Console.Write("({0} , {1}) ", current.data.login, current.position);
+                Console.Write("({0} , {1}) ", current.data, current.position);
                 InOrderDisplayTree(current.right);
             }
         }
@@ -259,5 +268,4 @@ namespace CourseWork
             return RotateRR(parent);
         }
     }
-
 }

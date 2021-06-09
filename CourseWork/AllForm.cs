@@ -13,42 +13,64 @@ namespace CourseWork
 {
     public partial class AllForm : Form
     {
-        List<Sales> userList = new List<Sales>();
-        LAavlTree tree = new LAavlTree();
+        public static List<Sales> salesList = new List<Sales>();
+        public static LAavlTree tree = new LAavlTree();
+
         public AllForm()
         {
             InitializeComponent();
+            ToolStripMenuItem deleteMenuItem = new ToolStripMenuItem("Удалить");
+            contextMenuStrip1.Items.AddRange(new[] { deleteMenuItem });
+            UsersGridView.ContextMenuStrip = contextMenuStrip1;
+            deleteMenuItem.Click += deleteMenuItem_Click;
         }
-        private void LAForm_Load(object sender, EventArgs e)
+
+        void deleteMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < UsersGridView.Rows.Count - 1; i++) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
+            int rowIndex = UsersGridView.CurrentCell.RowIndex;
+            string l = UsersGridView.Rows[rowIndex].Cells[0].Value.ToString();
+            string a = UsersGridView.Rows[rowIndex].Cells[1].Value.ToString();
+            string t = UsersGridView.Rows[rowIndex].Cells[2].Value.ToString();
+            string p = UsersGridView.Rows[rowIndex].Cells[3].Value.ToString();
+            string m = UsersGridView.Rows[rowIndex].Cells[4].Value.ToString();
+            MessageBox.Show($"{l} c товаром {t} был удален");
+            salesList.Remove(new Sales(l, a, t, Int32.Parse(p), m));
+            string tempFile = Path.GetTempFileName();
+            string whatToDelete = l + "|" + a + "|" + t + "|" + p + "|" + m;
+            using (var sr = new StreamReader("sales.txt"))
+            using (var sw = new StreamWriter(tempFile))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (line != whatToDelete)
+                        sw.WriteLine(line);
+                }
+            }
+            File.Delete("sales.txt");
+            File.Move(tempFile, "sales.txt");
+            UsersGridView.Rows.RemoveAt(rowIndex);
+        }
+
+        private void AllForm_Load(object sender, EventArgs e)
         {
             Form MainForm = new MainForm();
             MainForm.Hide();
-        }
-
-        private void BackToTheMenu_Click_1(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.OK;
-            Hide();
-        }
-
-        private void ReadFile_Click_1(object sender, EventArgs e)
-        {
-            for (int i = 0; i < UsersGridView.Rows.Count - 1; i++) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
-            if (userList.Count != 0) userList.Clear();
             StreamReader file = null;
             try
             {
                 file = new StreamReader("sales.txt");
                 String line;
-                UsersGridView.Rows.Clear();
                 while ((line = file.ReadLine()) != null)
                 {
                     string[] subs = line.Split('|');
-                    int p = Int32.Parse(subs[3]);
-                    bool t = false;
-                    if (subs[4] == "безналичный") t = true;
-                    else if (subs[4] == "наличный") t = false;
-                    userList.Add(new Sales(subs[0], subs[1], subs[2], p, t));
+                    LA u = new LA(subs[0], subs[1]);
+                    if (LAForm.UHT.search(u))   //РЕБЯТА СЮДА ДОБАВЛЯЮТ
+                    {
+                        salesList.Add(new Sales(subs[0], subs[1], subs[2], Int32.Parse(subs[3]), subs[4]));
+                        UsersGridView.Rows.Add(subs[0], subs[1], subs[2], subs[3], subs[4]);
+                    }
                 }
             }
             catch (Exception)
@@ -59,67 +81,39 @@ namespace CourseWork
             {
                 file.Close();
             }
-            for (var i = 0; i < userList.Count; i++) if (userList[i] != null) UsersGridView.Rows.Add(userList[i].login, userList[i].address, userList[i].nameOfProduct, userList[i].price, userList[i].typeOfPayment);
-            for (int i = 0; i < userList.Count; i++) tree.Add(userList[i], i);
+            for (int i = 0; i < salesList.Count; i++) tree.Add(salesList[i].login, salesList[i]);
         }
 
-        //private void addingButton_Click(object sender, EventArgs e)
-        //{
-        //    for (int i = 0; i < UsersGridView.Rows.Count - 1; i++) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
-        //    AddingForm addForm = new AddingForm();
-        //    DialogResult dialogResult = addForm.ShowDialog();
-        //    if (dialogResult == DialogResult.OK)
-        //    {
-        //        LA a = addForm.make();
-        //        if (UHT.add(a))
-        //        {
-        //            MessageBox.Show($"{a.login} был добавлен");
-        //            using (StreamWriter sw = File.AppendText("user.txt"))
-        //            {
-        //                sw.WriteLine($"{a.login}|{a.adress}");
-        //                sw.Close();
-        //            }
-        //            userList.Add(a);
-        //            RefreshDataGrid();
-        //        }
-        //    }
-        //}
-        //private void RefreshDataGrid()
-        //{
-        //    UsersGridView.Rows.Clear();
-        //    for (var i = 0; i < userList.Count; i++) if (userList[i] != null) UsersGridView.Rows.Add(UHT.hashFunc(userList[i].login), userList[i].login, userList[i].adress);
-        //}
+        private void BackToTheMenu_Click_1(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            Hide();
+            UsersGridView.Rows.Clear();
+        }
 
-        //private void deletingButton_Click(object sender, EventArgs e)
-        //{
-        //    for (int i = 0; i < UsersGridView.Rows.Count - 1; i++) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
-        //    DeletingForm delForm = new DeletingForm();
-        //    DialogResult dialogResult = delForm.ShowDialog();
-        //    if (dialogResult == DialogResult.OK)
-        //    {
-        //        LA b = delForm.make();
-        //        if (UHT.delete(b))
-        //        {
-        //            MessageBox.Show($"{b.login} был удален");
-        //            string tempFile = Path.GetTempFileName();
-        //            string whatToDelete = b.login + "|" + b.adress;
-        //            using (var sr = new StreamReader("user.txt"))
-        //            using (var sw = new StreamWriter(tempFile))
-        //            {
-        //                string line;
-        //                while ((line = sr.ReadLine()) != null)
-        //                {
-        //                    if (line != whatToDelete)
-        //                        sw.WriteLine(line);
-        //                }
-        //            }
-        //            File.Delete("user.txt");
-        //            File.Move(tempFile, "user.txt");
-        //            userList.Remove(b);
-        //            RefreshDataGrid();
-        //        }
-        //    }
-        //}
+        private void addingButton_Click_1(object sender, EventArgs e)
+        {
+            for (int i = 0; i < UsersGridView.Rows.Count - 1; i++) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
+            AddingSale addForm = new AddingSale();
+            DialogResult dialogResult = addForm.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                Sales a = addForm.make();
+                LA u = new LA(a.login, a.address);
+                if (LAForm.UHT.search(u) && !salesList.Contains(a))
+                {
+                    MessageBox.Show($"{a.login} был добавлен");
+                    using (StreamWriter sw = File.AppendText("sales.txt"))
+                    {
+                        sw.WriteLine($"{a.login}|{a.address}|{a.nameOfProduct}|{a.price}|{a.typeOfPayment}");
+                        sw.Close();
+                    }
+                    UsersGridView.Rows.Add(a.login, a.address, a.nameOfProduct, a.price, a.typeOfPayment);
+                }
+                else if (LAForm.UHT.search(u) && salesList.Contains(a)) MessageBox.Show($"{a.login} с товаром {a.nameOfProduct} уже добавлен");
+                else MessageBox.Show("Не может быть добавлен");
+            }
+        }
 
         private void searchingButton_Click(object sender, EventArgs e)
         {
@@ -128,27 +122,13 @@ namespace CourseWork
             DialogResult dialogResult = seaForm.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
-                int count = 0;
                 string c = seaForm.make();
-                Sales f = null;
-                for (int i = 0; i < userList.Count; i++)
+                tree.Find(c);
+                for (int i = 0; i < UsersGridView.Rows.Count - 1; i++)
                 {
-                    if (c == userList[i].login)
-                    {
-                        f = userList[i];
-                        count++;
-                    }
+                    string l = UsersGridView.Rows[i].Cells[0].Value.ToString();
+                    if (l == c) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
                 }
-                if (count != 0)
-                {
-                    tree.Find(f);
-                    for (int i = 0; i < UsersGridView.Rows.Count - 1; i++)
-                    {
-                        string l = UsersGridView.Rows[i].Cells[0].Value.ToString();
-                        if (l == c) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
-                    }
-                }
-                else MessageBox.Show($"{c} не был найден");
             }
         }
     }

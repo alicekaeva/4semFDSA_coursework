@@ -27,5 +27,12 @@ namespace CourseWork
             if (other == null) return false;
             return (this.login.Equals(other.login) && this.adress.Equals(other.adress));
         }
+        public override int GetHashCode()
+        {
+            int Count = 0;
+            for (int i = 0; i < this.login.Length; i++) Count += (int)this.login[i];
+            for (int i = 0; i < this.adress.Length; i++) Count += (int)this.adress[i];
+            return Count;
+        }
     }
 }
