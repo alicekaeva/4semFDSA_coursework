@@ -1,6 +1,4 @@
 ug4ine14|корпус 10
-allen_99|город
-alikaeva.aa|корпус 6.1
 kesha.x.y.z.|корпус 8.2
 kokovich__|корпус 2.4
 cherryzxqq|город
@@ -10,3 +8,9 @@ egor_Red|корпус 2.1
 Matbec2307Test|корпус 7.1
 mishka_|город
 natashaBest|корпус 2.6
+allen_99|город
+fkflf|корпус 11
+dantesMayo|корпус 7.1
+alexbyR|корпус 9
+alikaeva.aa|корпус 6.1
+aaaa|корпус 11

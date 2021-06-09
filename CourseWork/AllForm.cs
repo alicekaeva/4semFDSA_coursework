@@ -123,12 +123,17 @@ namespace CourseWork
             if (dialogResult == DialogResult.OK)
             {
                 string c = seaForm.make();
-                tree.Find(c);
-                for (int i = 0; i < UsersGridView.Rows.Count - 1; i++)
+                if (tree.contains(c))
                 {
-                    string l = UsersGridView.Rows[i].Cells[0].Value.ToString();
-                    if (l == c) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                    MessageBox.Show($"Сравнений - {LAavlTree.compare}");
+                    LAavlTree.compare = 0;
+                    for (int i = 0; i < UsersGridView.Rows.Count - 1; i++)
+                    {
+                        string l = UsersGridView.Rows[i].Cells[0].Value.ToString();
+                        if (l == c) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                    }
                 }
+                else MessageBox.Show($"{c} не был найден");
             }
         }
     }

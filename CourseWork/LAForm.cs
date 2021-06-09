@@ -32,8 +32,7 @@ namespace CourseWork
                 int rowIndex = UsersGridView.CurrentCell.RowIndex;
                 string l = UsersGridView.Rows[rowIndex].Cells[1].Value.ToString();
                 string a = UsersGridView.Rows[rowIndex].Cells[2].Value.ToString();
-                UHT.delete(new LA(l, a));
-                AllForm.tree.Delete(l);
+                UHT.delete(new LA(l, a),AllForm.salesList,AllForm.tree);
                 MessageBox.Show($"{l} был удален");
                 string tempFile = Path.GetTempFileName();
                 string whatToDelete = l + "|" + a;
@@ -49,6 +48,18 @@ namespace CourseWork
                 }
                 File.Delete("user.txt");
                 File.Move(tempFile, "user.txt");
+                using (var sr = new StreamReader("sales.txt"))
+                using (var sw = new StreamWriter(tempFile))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        if (line != whatToDelete)
+                            sw.WriteLine(line);
+                    }
+                }
+                File.Delete("sales.txt");
+                File.Move(tempFile, "sales.txt");
                 UsersGridView.Rows.RemoveAt(rowIndex);
             }
         }

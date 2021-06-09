@@ -10,7 +10,7 @@ namespace CourseWork
     public class LAavlTree
     {
         public static int compare = 0;
-        class Node
+        public class Node
         {
             public string data;
             public Sales position;
@@ -154,50 +154,30 @@ namespace CourseWork
             }
             return current;
         }
-        public void Find(string key)
+        public bool contains(string value)
         {
-            if (Find(key, root) == null)
+            Node current = root;
+
+            while (current != null)
             {
-                MessageBox.Show($"{key} не был найден");
-                return;
-            }
-            if (Find(key, root).data == key)
-            {
-                Console.WriteLine("{0} was found!", key);
-            }
-            else
-            {
-                Console.WriteLine("Nothing found!");
-            }
-        }
-        private Node Find(string target, Node current)
-        {
-            if (current == null)
-            {
-                return null;
-            }
-            if (String.Compare(target, current.data) < 0)
-            {
-                compare++;
-                if (target == current.data)
+                int comparison = String.Compare(value, current.data);
+                if (comparison == 0)
                 {
-                    MessageBox.Show($"Сравнений - {compare}");
-                    return current;
+                    compare++;
+                    return true;
+                }
+                else if (comparison < 0)
+                {
+                    compare++;
+                    current = current.left;
                 }
                 else
-                    return Find(target, current.left);
-            }
-            else
-            {
-                compare++;
-                if (target == current.data)
                 {
-                    MessageBox.Show($"Сравнений - {compare}");
-                    return current;
+                    compare++;
+                    current = current.right;
                 }
-                else
-                    return Find(target, current.right);
             }
+            return false;
         }
         public void DisplayTree()
         {

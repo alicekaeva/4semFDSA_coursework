@@ -33,8 +33,10 @@ namespace CourseWork
         {
             return hashT[hashFunc(u.login)].insert(u);
         }
-        public bool delete(LA u)
+        public bool delete(LA u, List<Sales> s,LAavlTree t)
         {
+            t.Delete(u.login);
+            s.RemoveAll(i => i.login == u.login && i.address == u.adress);
             return hashT[hashFunc(u.login)].deleteGivenNode(u);
         }
         public void searchByLogin(string u)
