@@ -19,38 +19,6 @@ namespace CourseWork
         public AllForm()
         {
             InitializeComponent();
-            ToolStripMenuItem deleteMenuItem = new ToolStripMenuItem("Удалить");
-            contextMenuStrip1.Items.AddRange(new[] { deleteMenuItem });
-            UsersGridView.ContextMenuStrip = contextMenuStrip1;
-            deleteMenuItem.Click += deleteMenuItem_Click;
-        }
-
-        void deleteMenuItem_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < UsersGridView.Rows.Count - 1; i++) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
-            int rowIndex = UsersGridView.CurrentCell.RowIndex;
-            string l = UsersGridView.Rows[rowIndex].Cells[0].Value.ToString();
-            string a = UsersGridView.Rows[rowIndex].Cells[1].Value.ToString();
-            string t = UsersGridView.Rows[rowIndex].Cells[2].Value.ToString();
-            string p = UsersGridView.Rows[rowIndex].Cells[3].Value.ToString();
-            string m = UsersGridView.Rows[rowIndex].Cells[4].Value.ToString();
-            MessageBox.Show($"{l} c товаром {t} был удален");
-            salesList.Remove(new Sales(l, a, t, Int32.Parse(p), m));
-            string tempFile = Path.GetTempFileName();
-            string whatToDelete = l + "|" + a + "|" + t + "|" + p + "|" + m;
-            using (var sr = new StreamReader("sales.txt"))
-            using (var sw = new StreamWriter(tempFile))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    if (line != whatToDelete)
-                        sw.WriteLine(line);
-                }
-            }
-            File.Delete("sales.txt");
-            File.Move(tempFile, "sales.txt");
-            UsersGridView.Rows.RemoveAt(rowIndex);
         }
 
         private void AllForm_Load(object sender, EventArgs e)
@@ -66,7 +34,7 @@ namespace CourseWork
                 {
                     string[] subs = line.Split('|');
                     LA u = new LA(subs[0], subs[1]);
-                    if (LAForm.UHT.search(u))   //РЕБЯТА СЮДА ДОБАВЛЯЮТ
+                    if (LAForm.UHT.search(u))
                     {
                         salesList.Add(new Sales(subs[0], subs[1], subs[2], Int32.Parse(subs[3]), subs[4]));
                         UsersGridView.Rows.Add(subs[0], subs[1], subs[2], subs[3], subs[4]);
@@ -102,7 +70,7 @@ namespace CourseWork
                 LA u = new LA(a.login, a.address);
                 if (LAForm.UHT.search(u) && !salesList.Contains(a))
                 {
-                    MessageBox.Show($"{a.login} был добавлен");
+                    MessageBox.Show($"{a.login} с товаром {a.nameOfProduct} был добавлен");
                     using (StreamWriter sw = File.AppendText("sales.txt"))
                     {
                         sw.WriteLine($"{a.login}|{a.address}|{a.nameOfProduct}|{a.price}|{a.typeOfPayment}");
@@ -135,6 +103,34 @@ namespace CourseWork
                 }
                 else MessageBox.Show($"{c} не был найден");
             }
+        }
+
+        private void deletionButton_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < UsersGridView.Rows.Count - 1; i++) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
+            int rowIndex = UsersGridView.CurrentCell.RowIndex;
+            string l = UsersGridView.Rows[rowIndex].Cells[0].Value.ToString();
+            string a = UsersGridView.Rows[rowIndex].Cells[1].Value.ToString();
+            string t = UsersGridView.Rows[rowIndex].Cells[2].Value.ToString();
+            string p = UsersGridView.Rows[rowIndex].Cells[3].Value.ToString();
+            string m = UsersGridView.Rows[rowIndex].Cells[4].Value.ToString();
+            MessageBox.Show($"{l} c товаром {t} был удален");
+            salesList.Remove(new Sales(l, a, t, Int32.Parse(p), m));
+            string tempFile = Path.GetTempFileName();
+            string whatToDelete = l + "|" + a + "|" + t + "|" + p + "|" + m;
+            using (var sr = new StreamReader("sales.txt"))
+            using (var sw = new StreamWriter(tempFile))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (line != whatToDelete)
+                        sw.WriteLine(line);
+                }
+            }
+            File.Delete("sales.txt");
+            File.Move(tempFile, "sales.txt");
+            UsersGridView.Rows.RemoveAt(rowIndex);
         }
     }
 }

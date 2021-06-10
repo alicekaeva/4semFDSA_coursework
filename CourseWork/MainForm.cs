@@ -12,6 +12,10 @@ namespace CourseWork
 {
     public partial class MainForm : Form
     {
+        //public static LAHashTable UHT = new LAHashTable();
+        //public static List<Sales> salesList = new List<Sales>();
+        //public static LAavlTree tree = new LAavlTree();
+
         public MainForm()
         {
             InitializeComponent();

@@ -29,7 +29,6 @@ namespace CourseWork
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AllForm));
             this.BackToTheMenu = new System.Windows.Forms.Button();
             this.searchingButton = new System.Windows.Forms.Button();
@@ -40,16 +39,14 @@ namespace CourseWork
             this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Way = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.deletionButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.UsersGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // BackToTheMenu
             // 
             this.BackToTheMenu.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.BackToTheMenu.Location = new System.Drawing.Point(75, 762);
+            this.BackToTheMenu.Location = new System.Drawing.Point(85, 660);
             this.BackToTheMenu.Name = "BackToTheMenu";
             this.BackToTheMenu.Size = new System.Drawing.Size(234, 86);
             this.BackToTheMenu.TabIndex = 11;
@@ -60,7 +57,7 @@ namespace CourseWork
             // searchingButton
             // 
             this.searchingButton.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.searchingButton.Location = new System.Drawing.Point(75, 259);
+            this.searchingButton.Location = new System.Drawing.Point(85, 517);
             this.searchingButton.Name = "searchingButton";
             this.searchingButton.Size = new System.Drawing.Size(234, 86);
             this.searchingButton.TabIndex = 10;
@@ -71,7 +68,7 @@ namespace CourseWork
             // addingButton
             // 
             this.addingButton.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.addingButton.Location = new System.Drawing.Point(75, 102);
+            this.addingButton.Location = new System.Drawing.Point(85, 232);
             this.addingButton.Name = "addingButton";
             this.addingButton.Size = new System.Drawing.Size(234, 86);
             this.addingButton.TabIndex = 9;
@@ -132,31 +129,16 @@ namespace CourseWork
             this.Way.Name = "Way";
             this.Way.Width = 240;
             // 
-            // contextMenuStrip1
+            // deletionButton
             // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(75, 424);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(234, 86);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Поиск по ...";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.button2.Location = new System.Drawing.Point(75, 590);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(234, 86);
-            this.button2.TabIndex = 13;
-            this.button2.Text = "Поиск по ...";
-            this.button2.UseVisualStyleBackColor = true;
+            this.deletionButton.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.deletionButton.Location = new System.Drawing.Point(85, 372);
+            this.deletionButton.Name = "deletionButton";
+            this.deletionButton.Size = new System.Drawing.Size(234, 86);
+            this.deletionButton.TabIndex = 12;
+            this.deletionButton.Text = "Удалить продажу";
+            this.deletionButton.UseVisualStyleBackColor = true;
+            this.deletionButton.Click += new System.EventHandler(this.deletionButton_Click);
             // 
             // AllForm
             // 
@@ -164,8 +146,7 @@ namespace CourseWork
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LemonChiffon;
             this.ClientSize = new System.Drawing.Size(1686, 950);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.deletionButton);
             this.Controls.Add(this.BackToTheMenu);
             this.Controls.Add(this.searchingButton);
             this.Controls.Add(this.addingButton);
@@ -190,8 +171,6 @@ namespace CourseWork
         private System.Windows.Forms.DataGridViewTextBoxColumn Item;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn Way;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button deletionButton;
     }
 }

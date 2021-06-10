@@ -29,7 +29,6 @@ namespace CourseWork
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LAForm));
             this.UsersGridView = new System.Windows.Forms.DataGridView();
             this.Hash = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,7 +37,7 @@ namespace CourseWork
             this.addingButton = new System.Windows.Forms.Button();
             this.searchingButton = new System.Windows.Forms.Button();
             this.BackToTheMenu = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deletingButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.UsersGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,7 +81,7 @@ namespace CourseWork
             // addingButton
             // 
             this.addingButton.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.addingButton.Location = new System.Drawing.Point(79, 317);
+            this.addingButton.Location = new System.Drawing.Point(79, 259);
             this.addingButton.Name = "addingButton";
             this.addingButton.Size = new System.Drawing.Size(234, 86);
             this.addingButton.TabIndex = 2;
@@ -93,7 +92,7 @@ namespace CourseWork
             // searchingButton
             // 
             this.searchingButton.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.searchingButton.Location = new System.Drawing.Point(79, 465);
+            this.searchingButton.Location = new System.Drawing.Point(79, 519);
             this.searchingButton.Name = "searchingButton";
             this.searchingButton.Size = new System.Drawing.Size(234, 86);
             this.searchingButton.TabIndex = 4;
@@ -104,7 +103,7 @@ namespace CourseWork
             // BackToTheMenu
             // 
             this.BackToTheMenu.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.BackToTheMenu.Location = new System.Drawing.Point(79, 611);
+            this.BackToTheMenu.Location = new System.Drawing.Point(79, 649);
             this.BackToTheMenu.Name = "BackToTheMenu";
             this.BackToTheMenu.Size = new System.Drawing.Size(234, 86);
             this.BackToTheMenu.TabIndex = 5;
@@ -112,11 +111,16 @@ namespace CourseWork
             this.BackToTheMenu.UseVisualStyleBackColor = true;
             this.BackToTheMenu.Click += new System.EventHandler(this.BackToTheMenu_Click);
             // 
-            // contextMenuStrip1
+            // deletingButton
             // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.deletingButton.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.deletingButton.Location = new System.Drawing.Point(79, 388);
+            this.deletingButton.Name = "deletingButton";
+            this.deletingButton.Size = new System.Drawing.Size(234, 86);
+            this.deletingButton.TabIndex = 6;
+            this.deletingButton.Text = "Удалить пользователя";
+            this.deletingButton.UseVisualStyleBackColor = true;
+            this.deletingButton.Click += new System.EventHandler(this.deletingButton_Click);
             // 
             // LAForm
             // 
@@ -124,6 +128,7 @@ namespace CourseWork
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LemonChiffon;
             this.ClientSize = new System.Drawing.Size(1686, 950);
+            this.Controls.Add(this.deletingButton);
             this.Controls.Add(this.BackToTheMenu);
             this.Controls.Add(this.searchingButton);
             this.Controls.Add(this.addingButton);
@@ -146,7 +151,7 @@ namespace CourseWork
         private System.Windows.Forms.Button addingButton;
         private System.Windows.Forms.Button searchingButton;
         private System.Windows.Forms.Button BackToTheMenu;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
+        private System.Windows.Forms.Button deletingButton;
     }
 }

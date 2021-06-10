@@ -35,8 +35,11 @@ namespace CourseWork
         }
         public bool delete(LA u, List<Sales> s,LAavlTree t)
         {
+            int first = s.Count();
             t.Delete(u.login);
             s.RemoveAll(i => i.login == u.login && i.address == u.adress);
+            int last = s.Count();
+            MessageBox.Show($"Из общей структуры было удалено {first - last} записей");
             return hashT[hashFunc(u.login)].deleteGivenNode(u);
         }
         public void searchByLogin(string u)
