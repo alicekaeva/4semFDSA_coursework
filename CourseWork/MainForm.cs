@@ -74,10 +74,7 @@ namespace CourseWork
                 {
                     string[] subs = line.Split('|');
                     LA u = new LA(subs[0], subs[1]);
-                    if (UHT.search(u))
-                    {
-                        salesList.Add(new Sales(subs[0], subs[1], subs[2], Int32.Parse(subs[3]), subs[4]));
-                    }
+                    if (UHT.search(u) && checkingNameOfProduct(subs[2]) && checkRangeOfPrice(Int32.Parse(subs[3])) && checkTypeOfMethod(subs[4])) salesList.Add(new Sales(subs[0], subs[1], subs[2], Int32.Parse(subs[3]), subs[4]));
                 }
             }
             catch (Exception)
@@ -89,6 +86,32 @@ namespace CourseWork
                 file.Close();
             }
             for (int i = 0; i < salesList.Count; i++) tree.Add(salesList[i].login, salesList[i]);
+        }
+
+        public static bool checkingNameOfProduct(string s)
+        {
+            if (s.Length <= 50)
+            {
+                for (int i = 0; i < s.Length; i++)
+                {
+                    if (!((s[i] >= 'А' && s[i] <= 'Я') || (s[i] >= 'а' && s[0] <= 'я') || (s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[0] <= 'z') || s[i] == '"' || s[i] == '-' || s[i] == ' ' || (s[i] >= '0' && s[i] <= '9')))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            else return false;
+        }
+
+        public static bool checkRangeOfPrice(int a)
+        {
+            return (a >= 0 && a <= 999999);
+        }
+
+        public static bool checkTypeOfMethod(string s)
+        {
+            return (s == "безналичный" || s == "наличный");
         }
     }
 }

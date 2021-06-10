@@ -9,7 +9,7 @@ namespace CourseWork
 {
     public class LAavlTree
     {
-        public static int compare = 0;
+
         public class Node
         {
             public string data;
@@ -22,7 +22,9 @@ namespace CourseWork
                 this.position = i;
             }
         }
+
         Node root;
+
         public void Add(string data, Sales i)
         {
             Node newItem = new Node(data, i);
@@ -35,6 +37,7 @@ namespace CourseWork
                 root = RecursiveInsert(root, newItem);
             }
         }
+
         private Node RecursiveInsert(Node current, Node n)
         {
             if (current == null)
@@ -54,6 +57,7 @@ namespace CourseWork
             }
             return current;
         }
+
         private Node balance_tree(Node current)
         {
             int b_factor = balance_factor(current);
@@ -81,10 +85,12 @@ namespace CourseWork
             }
             return current;
         }
+
         public void Delete(string target)
         {//and here
             root = Delete(root, target);
         }
+
         private Node Delete(Node current, string target)
         {
             Node parent;
@@ -154,16 +160,18 @@ namespace CourseWork
             }
             return current;
         }
-        public bool contains(string value)
-        {
-            Node current = root;
 
+        public bool Contains(string value)
+        {
+            int compare = 0;
+            Node current = root;
             while (current != null)
             {
                 int comparison = String.Compare(value, current.data);
                 if (comparison == 0)
                 {
                     compare++;
+                    MessageBox.Show($"Сравнений - {compare}");
                     return true;
                 }
                 else if (comparison < 0)
@@ -177,31 +185,15 @@ namespace CourseWork
                     current = current.right;
                 }
             }
+            MessageBox.Show($"Сравнений - {compare}");
             return false;
         }
-        public void DisplayTree()
-        {
-            if (root == null)
-            {
-                Console.WriteLine("Tree is empty");
-                return;
-            }
-            InOrderDisplayTree(root);
-            Console.WriteLine();
-        }
-        private void InOrderDisplayTree(Node current)
-        {
-            if (current != null)
-            {
-                InOrderDisplayTree(current.left);
-                Console.Write("({0} , {1}) ", current.data, current.position);
-                InOrderDisplayTree(current.right);
-            }
-        }
+
         private int max(int l, int r)
         {
             return l > r ? l : r;
         }
+
         private int getHeight(Node current)
         {
             int height = 0;
@@ -214,6 +206,7 @@ namespace CourseWork
             }
             return height;
         }
+
         private int balance_factor(Node current)
         {
             int l = getHeight(current.left);
@@ -221,6 +214,7 @@ namespace CourseWork
             int b_factor = l - r;
             return b_factor;
         }
+
         private Node RotateRR(Node parent)
         {
             Node pivot = parent.right;
@@ -228,6 +222,7 @@ namespace CourseWork
             pivot.left = parent;
             return pivot;
         }
+
         private Node RotateLL(Node parent)
         {
             Node pivot = parent.left;
@@ -235,12 +230,14 @@ namespace CourseWork
             pivot.right = parent;
             return pivot;
         }
+
         private Node RotateLR(Node parent)
         {
             Node pivot = parent.left;
             parent.left = RotateRR(pivot);
             return RotateLL(parent);
         }
+
         private Node RotateRL(Node parent)
         {
             Node pivot = parent.right;

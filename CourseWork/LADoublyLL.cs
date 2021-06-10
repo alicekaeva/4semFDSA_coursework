@@ -13,6 +13,7 @@ namespace CourseWork
         public node next;
         public node prev;
     }
+
     public class LADoublyLL
     {
         public node head;
@@ -21,10 +22,15 @@ namespace CourseWork
         {
             head = null;
         }
+
         public bool insert(LA u)
         {
-            if (search(u)) return false;
-            else if (checkingLogin(u.login) && checkingAdress(u.adress) && !(search(u)))
+            if (search(u))
+            {
+                MessageBox.Show($"{u.login} уже добавлен");
+                return false;
+            }
+            else if (checkingLogin(u.login) && checkingAddress(u.address) && !(search(u)))
             {
                 node newNode = new node();
                 newNode.data = u;
@@ -64,6 +70,7 @@ namespace CourseWork
                 return false;
             }
         }
+
         public node deleteNode(node head, node del)
         {
             if (head == null || del == null)
@@ -82,6 +89,7 @@ namespace CourseWork
 
             return head;
         }
+
         public bool deleteGivenNode(LA u)
         {
             if (search(u))
@@ -98,6 +106,7 @@ namespace CourseWork
                     {
                         head.prev = null;
                     }
+                    MessageBox.Show($"{u.login} был удален");
                     return true;
                 }
                 else
@@ -109,26 +118,25 @@ namespace CourseWork
                     if (current == null)
                         return false;
                     deleteNode(head, current);
+                    MessageBox.Show($"{u.login} был удален");
                     return true;
                 }
             }
-            else
-            {
-                MessageBox.Show($"{u.login} не был найден");
-                return false;
-            }
+            else return false;
         }
+
         public bool search(LA u)
         {
             node current = head;
             while (current != null)
             {
-                if ((current.data.adress == u.adress) && String.Compare(current.data.login, u.login) == 0) // equal to current.data == x
+                if ((current.data.address == u.address) && String.Compare(current.data.login, u.login) == 0) // equal to current.data == x
                     return true;
                 current = current.next;
             }
             return false;
         }
+
         public LA searchByLogin(string u)
         {
             int compare = 0;
@@ -144,39 +152,35 @@ namespace CourseWork
                 compare++;
                 current = current.next;
             }
+            MessageBox.Show($"{u} не был найден");
             MessageBox.Show($"Сравнений - {compare}");
             return null;
         }
-        public int getLength()
-        {
-            node current = head;
-            int len = 0;
-            while (current != null)
-            {
-                len++;
-                current = current.next;
-            }
-            return len;
-        }
+
         public bool checkingLogin(string s)
         {
-            if ((s[0] >= 'A' && s[0] <= 'Z') || (s[0] >= 'a' && s[0] <= 'z'))
+            if (s.Length <= 30)
             {
-                for (int i = 1; i < s.Length; i++)
+                if ((s[0] >= 'A' && s[0] <= 'Z') || (s[0] >= 'a' && s[0] <= 'z'))
                 {
-                    if (!((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[0] <= 'z') || s[i] == '.' || s[i] == '_' || (s[i] >= '0' && s[i] <= '9')))
+                    for (int i = 1; i < s.Length; i++)
                     {
-                        return false;
+                        if (!((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[0] <= 'z') || s[i] == '.' || s[i] == '_' || (s[i] >= '0' && s[i] <= '9')))
+                        {
+                            return false;
+                        }
                     }
+                    return true;
                 }
-                return true;
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
+            else return false;
         }
-        public bool checkingAdress(string s)
+
+        public bool checkingAddress(string s)
         {
             string[] dormitory = new string[] { "город", "корпус 11", "корпус 10", "корпус 9", "корпус 8.1", "корпус 8.2", "корпус 7.1", "корпус 7.2", "корпус 6.1", "корпус 6.2", "корпус 1.10", "корпус 2.1", "корпус 2.2", "корпус 2.3", "корпус 2.4", "корпус 2.5", "корпус 2.6", "корпус 2.7" };
             int count = 0;

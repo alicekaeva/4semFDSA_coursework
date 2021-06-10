@@ -26,7 +26,7 @@ namespace CourseWork
                 node current = MainForm.UHT.hashT[i].head;
                 while (current != null)
                 {
-                    UsersGridView.Rows.Add(MainForm.UHT.hashFunc(current.data.login), current.data.login, current.data.adress);
+                    UsersGridView.Rows.Add(MainForm.UHT.hashFunc(current.data.login), current.data.login, current.data.address);
                     current = current.next;
                 }
             }
@@ -52,10 +52,10 @@ namespace CourseWork
                     MessageBox.Show($"{a.login} был добавлен");
                     using (StreamWriter sw = File.AppendText("user.txt"))
                     {
-                        sw.WriteLine($"{a.login}|{a.adress}");
+                        sw.WriteLine($"{a.login}|{a.address}");
                         sw.Close();
                     }
-                    string[] row1 = new string[] { MainForm.UHT.hashFunc(a.login).ToString(), a.login, a.adress };
+                    string[] row1 = new string[] { MainForm.UHT.hashFunc(a.login).ToString(), a.login, a.address };
                     UsersGridView.Rows.Add(row1);
                 }
             }
@@ -69,11 +69,13 @@ namespace CourseWork
             if (dialogResult == DialogResult.OK)
             {
                 string c = seaForm.make();
-                MainForm.UHT.searchByLogin(c);
-                for (int i = 0; i < UsersGridView.Rows.Count - 1; i++)
+                if (MainForm.UHT.searchByLogin(c))
                 {
-                    string l = UsersGridView.Rows[i].Cells[1].Value.ToString();
-                    if (l == c) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                    for (int i = 0; i < UsersGridView.Rows.Count - 1; i++)
+                    {
+                        string l = UsersGridView.Rows[i].Cells[1].Value.ToString();
+                        if (l == c) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                    }
                 }
             }
         }
@@ -86,35 +88,7 @@ namespace CourseWork
                 int rowIndex = UsersGridView.CurrentCell.RowIndex;
                 string l = UsersGridView.Rows[rowIndex].Cells[1].Value.ToString();
                 string a = UsersGridView.Rows[rowIndex].Cells[2].Value.ToString();
-                MainForm.UHT.delete(new LA(l, a), MainForm.salesList, MainForm.tree);
-                MessageBox.Show($"{l} был удален");
-                string tempFile = Path.GetTempFileName();
-                string whatToDelete = l + "|" + a;
-                using (var sr = new StreamReader("user.txt"))
-                using (var sw = new StreamWriter(tempFile))
-                {
-                    string line;
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        if (line != whatToDelete)
-                            sw.WriteLine(line);
-                    }
-                }
-                File.Delete("user.txt");
-                File.Move(tempFile, "user.txt");
-                using (var sr = new StreamReader("sales.txt"))
-                using (var sw = new StreamWriter(tempFile))
-                {
-                    string line;
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        if (line != whatToDelete)
-                            sw.WriteLine(line);
-                    }
-                }
-                File.Delete("sales.txt");
-                File.Move(tempFile, "sales.txt");
-                UsersGridView.Rows.RemoveAt(rowIndex);
+                if (MainForm.UHT.delete(new LA(l, a), MainForm.salesList, MainForm.tree)) UsersGridView.Rows.RemoveAt(rowIndex);
             }
         }
     }

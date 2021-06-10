@@ -38,9 +38,9 @@ namespace CourseWork
             DialogResult dialogResult = addForm.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
-                if (addForm.make() != null)
+                Sales a = addForm.make();
+                if (a != null && MainForm.checkingNameOfProduct(a.nameOfProduct) && MainForm.checkRangeOfPrice(a.price) && MainForm.checkTypeOfMethod(a.typeOfPayment))
                 {
-                    Sales a = addForm.make();
                     LA u = new LA(a.login, a.address);
                     if (MainForm.UHT.search(u) && !MainForm.salesList.Contains(a))
                     {
@@ -55,7 +55,7 @@ namespace CourseWork
                     else if (MainForm.UHT.search(u) && MainForm.salesList.Contains(a)) MessageBox.Show($"{a.login} с товаром {a.nameOfProduct} уже добавлен");
                     else MessageBox.Show("Не может быть добавлен");
                 }
-                else MessageBox.Show("Не может быть добавлен");
+                else MessageBox.Show("Неверный формат входных данных");
             }
         }
 
@@ -67,10 +67,8 @@ namespace CourseWork
             if (dialogResult == DialogResult.OK)
             {
                 string c = seaForm.make();
-                if (MainForm.tree.contains(c))
+                if (MainForm.tree.Contains(c))
                 {
-                    MessageBox.Show($"Сравнений - {LAavlTree.compare}");
-                    LAavlTree.compare = 0;
                     for (int i = 0; i < UsersGridView.Rows.Count - 1; i++)
                     {
                         string l = UsersGridView.Rows[i].Cells[0].Value.ToString();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace CourseWork
 {
@@ -31,33 +32,53 @@ namespace CourseWork
         }
         public bool add(LA u)
         {
-            return hashT[hashFunc(u.login)].insert(u);
+            if (hashT[hashFunc(u.login)].insert(u)) return true;
+            else return false;
         }
         public bool delete(LA u, List<Sales> s,LAavlTree t)
         {
             int first = s.Count();
             t.Delete(u.login);
-            s.RemoveAll(i => i.login == u.login && i.address == u.adress);
+            s.RemoveAll(i => i.login == u.login && i.address == u.address);
             int last = s.Count();
             MessageBox.Show($"Из общей структуры было удалено {first - last} записей");
+            string tempFile = Path.GetTempFileName();
+            string whatToDelete = u.login + "|" + u.address;
+            using (var sr = new StreamReader("user.txt"))
+            using (var sw = new StreamWriter(tempFile))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (line != whatToDelete)
+                        sw.WriteLine(line);
+                }
+            }
+            File.Delete("user.txt");
+            File.Move(tempFile, "user.txt");
+            using (var sr = new StreamReader("sales.txt"))
+            using (var sw = new StreamWriter(tempFile))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (line != whatToDelete)
+                        sw.WriteLine(line);
+                }
+            }
+            File.Delete("sales.txt");
+            File.Move(tempFile, "sales.txt");
             return hashT[hashFunc(u.login)].deleteGivenNode(u);
         }
-        public void searchByLogin(string u)
+        public bool searchByLogin(string u)
         {
-            if (hashT[hashFunc(u)].searchByLogin(u) == null) MessageBox.Show($"{u} не был найден");
+            if (hashT[hashFunc(u)].searchByLogin(u) == null) return false;
+            else return true;
         }
         public bool search(LA u)
         {
-            if (hashT[hashFunc(u.login)].search(u) == false)
-            {
-                Console.WriteLine($"{u.login} isn't found");
-                return false;
-            }
-            else
-            {
-                Console.WriteLine($"{u.login} is {hashFunc(u.login)}");
-                return true;
-            }
+            if (hashT[hashFunc(u.login)].search(u) == false) return false;
+            else return true;
         }
     }
 }

@@ -1,4 +1,3 @@
-kesha.x.y.z.|корпус 8.2
 aye228|корпус 11
 weja|корпус 11
 egor_Red|корпус 2.1
@@ -8,3 +7,4 @@ fkflf|корпус 11
 dantesMayo|корпус 7.1
 alexbyR|корпус 9
 aaaa|корпус 11
+Ruslan_Botsman|город
