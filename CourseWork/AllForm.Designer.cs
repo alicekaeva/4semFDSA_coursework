@@ -165,12 +165,12 @@ namespace CourseWork
         private System.Windows.Forms.Button BackToTheMenu;
         private System.Windows.Forms.Button searchingButton;
         private System.Windows.Forms.Button addingButton;
-        private System.Windows.Forms.DataGridView UsersGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn Login;
         private System.Windows.Forms.DataGridViewTextBoxColumn Address;
         private System.Windows.Forms.DataGridViewTextBoxColumn Item;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn Way;
         private System.Windows.Forms.Button deletionButton;
+        public System.Windows.Forms.DataGridView UsersGridView;
     }
 }

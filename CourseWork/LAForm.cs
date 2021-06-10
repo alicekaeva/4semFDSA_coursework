@@ -13,7 +13,6 @@ namespace CourseWork
 {
     public partial class LAForm : Form
     {
-        public static LAHashTable UHT = new LAHashTable();
 
         public LAForm()
         {
@@ -22,29 +21,14 @@ namespace CourseWork
 
         private void LAForm_Load(object sender, EventArgs e)
         {
-            Form MainForm = new MainForm();
-            MainForm.Hide();
-            StreamReader file = null;
-            //UsersGridView.Rows.Clear();
-            try
+            for (int i = 0; i < 10; i++)
             {
-                file = new StreamReader("user.txt");
-                String line;
-                while ((line = file.ReadLine()) != null)
+                node current = MainForm.UHT.hashT[i].head;
+                while (current != null)
                 {
-                    string[] subs = line.Split('|');
-                    UHT.add(new LA(subs[0], subs[1]));
-                    string[] row1 = new string[] { UHT.hashFunc(subs[0]).ToString(), subs[0], subs[1] };
-                    UsersGridView.Rows.Add(row1);
+                    UsersGridView.Rows.Add(MainForm.UHT.hashFunc(current.data.login), current.data.login, current.data.adress);
+                    current = current.next;
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Ошибка входных данных");
-            }
-            finally
-            {
-                file.Close();
             }
         }
 
@@ -63,7 +47,7 @@ namespace CourseWork
             if (dialogResult == DialogResult.OK)
             {
                 LA a = addForm.make();
-                if (UHT.add(a))
+                if (MainForm.UHT.add(a))
                 {
                     MessageBox.Show($"{a.login} был добавлен");
                     using (StreamWriter sw = File.AppendText("user.txt"))
@@ -71,7 +55,7 @@ namespace CourseWork
                         sw.WriteLine($"{a.login}|{a.adress}");
                         sw.Close();
                     }
-                    string[] row1 = new string[] { UHT.hashFunc(a.login).ToString(), a.login, a.adress };
+                    string[] row1 = new string[] { MainForm.UHT.hashFunc(a.login).ToString(), a.login, a.adress };
                     UsersGridView.Rows.Add(row1);
                 }
             }
@@ -85,7 +69,7 @@ namespace CourseWork
             if (dialogResult == DialogResult.OK)
             {
                 string c = seaForm.make();
-                UHT.searchByLogin(c);
+                MainForm.UHT.searchByLogin(c);
                 for (int i = 0; i < UsersGridView.Rows.Count - 1; i++)
                 {
                     string l = UsersGridView.Rows[i].Cells[1].Value.ToString();
@@ -102,7 +86,7 @@ namespace CourseWork
                 int rowIndex = UsersGridView.CurrentCell.RowIndex;
                 string l = UsersGridView.Rows[rowIndex].Cells[1].Value.ToString();
                 string a = UsersGridView.Rows[rowIndex].Cells[2].Value.ToString();
-                UHT.delete(new LA(l, a), AllForm.salesList, AllForm.tree);
+                MainForm.UHT.delete(new LA(l, a), MainForm.salesList, MainForm.tree);
                 MessageBox.Show($"{l} был удален");
                 string tempFile = Path.GetTempFileName();
                 string whatToDelete = l + "|" + a;

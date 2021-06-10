@@ -151,7 +151,6 @@ namespace CourseWork
         private System.Windows.Forms.Button addingButton;
         private System.Windows.Forms.Button searchingButton;
         private System.Windows.Forms.Button BackToTheMenu;
-        private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
         private System.Windows.Forms.Button deletingButton;
     }
 }

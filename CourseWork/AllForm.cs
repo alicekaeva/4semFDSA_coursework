@@ -13,8 +13,6 @@ namespace CourseWork
 {
     public partial class AllForm : Form
     {
-        public static List<Sales> salesList = new List<Sales>();
-        public static LAavlTree tree = new LAavlTree();
 
         public AllForm()
         {
@@ -23,33 +21,7 @@ namespace CourseWork
 
         private void AllForm_Load(object sender, EventArgs e)
         {
-            Form MainForm = new MainForm();
-            MainForm.Hide();
-            StreamReader file = null;
-            try
-            {
-                file = new StreamReader("sales.txt");
-                String line;
-                while ((line = file.ReadLine()) != null)
-                {
-                    string[] subs = line.Split('|');
-                    LA u = new LA(subs[0], subs[1]);
-                    if (LAForm.UHT.search(u))
-                    {
-                        salesList.Add(new Sales(subs[0], subs[1], subs[2], Int32.Parse(subs[3]), subs[4]));
-                        UsersGridView.Rows.Add(subs[0], subs[1], subs[2], subs[3], subs[4]);
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Ошибка входных данных");
-            }
-            finally
-            {
-                file.Close();
-            }
-            for (int i = 0; i < salesList.Count; i++) tree.Add(salesList[i].login, salesList[i]);
+            for (int i = 0; i < MainForm.salesList.Count(); i++) UsersGridView.Rows.Add(MainForm.salesList[i].login, MainForm.salesList[i].address, MainForm.salesList[i].nameOfProduct, MainForm.salesList[i].price, MainForm.salesList[i].typeOfPayment);
         }
 
         private void BackToTheMenu_Click_1(object sender, EventArgs e)
@@ -66,19 +38,23 @@ namespace CourseWork
             DialogResult dialogResult = addForm.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
-                Sales a = addForm.make();
-                LA u = new LA(a.login, a.address);
-                if (LAForm.UHT.search(u) && !salesList.Contains(a))
+                if (addForm.make() != null)
                 {
-                    MessageBox.Show($"{a.login} с товаром {a.nameOfProduct} был добавлен");
-                    using (StreamWriter sw = File.AppendText("sales.txt"))
+                    Sales a = addForm.make();
+                    LA u = new LA(a.login, a.address);
+                    if (MainForm.UHT.search(u) && !MainForm.salesList.Contains(a))
                     {
-                        sw.WriteLine($"{a.login}|{a.address}|{a.nameOfProduct}|{a.price}|{a.typeOfPayment}");
-                        sw.Close();
+                        MessageBox.Show($"{a.login} с товаром {a.nameOfProduct} был добавлен");
+                        using (StreamWriter sw = File.AppendText("sales.txt"))
+                        {
+                            sw.WriteLine($"{a.login}|{a.address}|{a.nameOfProduct}|{a.price}|{a.typeOfPayment}");
+                            sw.Close();
+                        }
+                        UsersGridView.Rows.Add(a.login, a.address, a.nameOfProduct, a.price, a.typeOfPayment);
                     }
-                    UsersGridView.Rows.Add(a.login, a.address, a.nameOfProduct, a.price, a.typeOfPayment);
+                    else if (MainForm.UHT.search(u) && MainForm.salesList.Contains(a)) MessageBox.Show($"{a.login} с товаром {a.nameOfProduct} уже добавлен");
+                    else MessageBox.Show("Не может быть добавлен");
                 }
-                else if (LAForm.UHT.search(u) && salesList.Contains(a)) MessageBox.Show($"{a.login} с товаром {a.nameOfProduct} уже добавлен");
                 else MessageBox.Show("Не может быть добавлен");
             }
         }
@@ -91,7 +67,7 @@ namespace CourseWork
             if (dialogResult == DialogResult.OK)
             {
                 string c = seaForm.make();
-                if (tree.contains(c))
+                if (MainForm.tree.contains(c))
                 {
                     MessageBox.Show($"Сравнений - {LAavlTree.compare}");
                     LAavlTree.compare = 0;
@@ -115,7 +91,7 @@ namespace CourseWork
             string p = UsersGridView.Rows[rowIndex].Cells[3].Value.ToString();
             string m = UsersGridView.Rows[rowIndex].Cells[4].Value.ToString();
             MessageBox.Show($"{l} c товаром {t} был удален");
-            salesList.Remove(new Sales(l, a, t, Int32.Parse(p), m));
+            MainForm.salesList.Remove(new Sales(l, a, t, Int32.Parse(p), m));
             string tempFile = Path.GetTempFileName();
             string whatToDelete = l + "|" + a + "|" + t + "|" + p + "|" + m;
             using (var sr = new StreamReader("sales.txt"))

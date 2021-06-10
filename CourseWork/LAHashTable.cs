@@ -10,7 +10,7 @@ namespace CourseWork
    public class LAHashTable
     {
         static int n = 10;
-        LADoublyLL[] hashT;
+        public LADoublyLL[] hashT;
         public LAHashTable()
         {
             hashT = new LADoublyLL[n];
