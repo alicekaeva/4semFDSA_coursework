@@ -25,7 +25,7 @@ namespace CourseWork
 
         public LA make()
         {
-            LA who = new LA(textBox1.Text, textBox2.Text);
+            LA who = new LA(textBox1.Text, comboBox1.Text);
             return who;
         }
     }
