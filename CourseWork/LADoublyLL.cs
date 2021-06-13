@@ -165,7 +165,7 @@ namespace CourseWork
                 {
                     for (int i = 1; i < s.Length; i++)
                     {
-                        if (!((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[0] <= 'z') || s[i] == '.' || s[i] == '_' || (s[i] >= '0' && s[i] <= '9')))
+                        if (!((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z') || s[i] == '.' || s[i] == '_' || (s[i] >= '0' && s[i] <= '9')))
                         {
                             return false;
                         }

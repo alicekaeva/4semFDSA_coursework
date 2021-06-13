@@ -39,7 +39,7 @@ namespace CourseWork
             if (dialogResult == DialogResult.OK)
             {
                 Sales a = addForm.make();
-                if (a != null && MainForm.checkingNameOfProduct(a.nameOfProduct) && MainForm.checkRangeOfPrice(a.price) && MainForm.checkTypeOfMethod(a.typeOfPayment))
+                if (a != null)
                 {
                     LA u = new LA(a.login, a.address);
                     if (MainForm.UHT.search(u) && !MainForm.salesList.Contains(a))
@@ -50,6 +50,8 @@ namespace CourseWork
                             sw.WriteLine($"{a.login}|{a.address}|{a.nameOfProduct}|{a.price}|{a.typeOfPayment}");
                             sw.Close();
                         }
+                        MainForm.salesList.Add(a);
+                        MainForm.tree.Add(a.login, a);
                         UsersGridView.Rows.Add(a.login, a.address, a.nameOfProduct, a.price, a.typeOfPayment);
                     }
                     else if (MainForm.UHT.search(u) && MainForm.salesList.Contains(a)) MessageBox.Show($"{a.login} с товаром {a.nameOfProduct} уже добавлен");
@@ -90,17 +92,14 @@ namespace CourseWork
             string m = UsersGridView.Rows[rowIndex].Cells[4].Value.ToString();
             MessageBox.Show($"{l} c товаром {t} был удален");
             MainForm.salesList.Remove(new Sales(l, a, t, Int32.Parse(p), m));
+            MainForm.tree.Delete(l);
             string tempFile = Path.GetTempFileName();
             string whatToDelete = l + "|" + a + "|" + t + "|" + p + "|" + m;
             using (var sr = new StreamReader("sales.txt"))
             using (var sw = new StreamWriter(tempFile))
             {
                 string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    if (line != whatToDelete)
-                        sw.WriteLine(line);
-                }
+                while ((line = sr.ReadLine()) != null) if (line != whatToDelete) sw.WriteLine(line);
             }
             File.Delete("sales.txt");
             File.Move(tempFile, "sales.txt");

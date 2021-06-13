@@ -29,11 +29,11 @@ namespace CourseWork
             try
             {
                 Sales who = new Sales(textBox1.Text, textBox2.Text, textBox3.Text, Int32.Parse(textBox4.Text), textBox5.Text);
-                return who;
+                if (MainForm.checkingLogin(textBox1.Text) && MainForm.checkingAddress(textBox2.Text) && MainForm.checkingNameOfProduct(textBox3.Text) && MainForm.checkRangeOfPrice(Int32.Parse(textBox4.Text)) && MainForm.checkTypeOfMethod(textBox5.Text)) return who;
+                else return null;
             }
             catch (Exception)
             {
-                MessageBox.Show("Неверный формат входных данных");
                 return null;
             }
         }

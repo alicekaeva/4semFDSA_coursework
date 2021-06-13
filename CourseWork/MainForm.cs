@@ -94,7 +94,7 @@ namespace CourseWork
             {
                 for (int i = 0; i < s.Length; i++)
                 {
-                    if (!((s[i] >= 'А' && s[i] <= 'Я') || (s[i] >= 'а' && s[0] <= 'я') || (s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[0] <= 'z') || s[i] == '"' || s[i] == '-' || s[i] == ' ' || (s[i] >= '0' && s[i] <= '9')))
+                    if (!((s[i] >= 'А' && s[i] <= 'Я') || (s[i] >= 'а' && s[i] <= 'я') || (s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z') || s[i] == '"' || s[i] == '-' || s[i] == ' ' || (s[i] >= '0' && s[i] <= '9')))
                     {
                         return false;
                     }
@@ -112,6 +112,40 @@ namespace CourseWork
         public static bool checkTypeOfMethod(string s)
         {
             return (s == "безналичный" || s == "наличный");
+        }
+        public static bool checkingLogin(string s)
+        {
+            if (s.Length <= 30)
+            {
+                if ((s[0] >= 'A' && s[0] <= 'Z') || (s[0] >= 'a' && s[0] <= 'z'))
+                {
+                    for (int i = 1; i < s.Length; i++)
+                    {
+                        if (!((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z') || s[i] == '.' || s[i] == '_' || (s[i] >= '0' && s[i] <= '9')))
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else return false;
+        }
+
+        public static bool checkingAddress(string s)
+        {
+            string[] dormitory = new string[] { "город", "корпус 11", "корпус 10", "корпус 9", "корпус 8.1", "корпус 8.2", "корпус 7.1", "корпус 7.2", "корпус 6.1", "корпус 6.2", "корпус 1.10", "корпус 2.1", "корпус 2.2", "корпус 2.3", "корпус 2.4", "корпус 2.5", "корпус 2.6", "корпус 2.7" };
+            int count = 0;
+            for (int i = 0; i < dormitory.Length; i++)
+            {
+                if (s == dormitory[i]) count++;
+            }
+            if (count == 1) return true;
+            else return false;
         }
     }
 }
