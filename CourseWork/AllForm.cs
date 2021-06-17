@@ -39,7 +39,7 @@ namespace CourseWork
             if (dialogResult == DialogResult.OK)
             {
                 Sales a = addForm.make();
-                if (a != null)
+                if (a != null && MainForm.checkingLogin(a.login) && MainForm.checkingAddress(a.address) && MainForm.checkingNameOfProduct(a.nameOfProduct) && MainForm.checkRangeOfPrice(a.price) && MainForm.checkTypeOfMethod(a.typeOfPayment))
                 {
                     LA u = new LA(a.login, a.address);
                     if (MainForm.UHT.search(u) && !MainForm.salesList.Contains(a))
@@ -55,9 +55,9 @@ namespace CourseWork
                         UsersGridView.Rows.Add(a.login, a.address, a.nameOfProduct, a.price, a.typeOfPayment);
                     }
                     else if (MainForm.UHT.search(u) && MainForm.salesList.Contains(a)) MessageBox.Show($"{a.login} с товаром {a.nameOfProduct} уже добавлен");
-                    else MessageBox.Show("Не может быть добавлен");
+                    else MessageBox.Show("Пользователь не содерижится в списке пользователей");
                 }
-                else MessageBox.Show("Неверный формат входных данных");
+                else MessageBox.Show("Поле оказалось пустым или содержит некорректные данные");
             }
         }
 
@@ -69,15 +69,18 @@ namespace CourseWork
             if (dialogResult == DialogResult.OK)
             {
                 string c = seaForm.make();
-                if (MainForm.tree.Contains(c))
+                if (c != null)
                 {
-                    for (int i = 0; i < UsersGridView.Rows.Count - 1; i++)
+                    if (MainForm.tree.Contains(c))
                     {
-                        string l = UsersGridView.Rows[i].Cells[0].Value.ToString();
-                        if (l == c) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                        for (int i = 0; i < UsersGridView.Rows.Count - 1; i++)
+                        {
+                            string l = UsersGridView.Rows[i].Cells[0].Value.ToString();
+                            if (l == c) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                        }
                     }
-                }
-                else MessageBox.Show($"{c} не был найден");
+                    else MessageBox.Show($"{c} не был найден");
+                } else MessageBox.Show("Поле оказалось пустым");
             }
         }
 
@@ -85,6 +88,11 @@ namespace CourseWork
         {
             for (int i = 0; i < UsersGridView.Rows.Count - 1; i++) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
             int rowIndex = UsersGridView.CurrentCell.RowIndex;
+            if (UsersGridView.Rows[rowIndex].Cells[0].Value == null)
+            {
+                MessageBox.Show("Невозможно удалить пустую строку");
+                return;
+            }
             string l = UsersGridView.Rows[rowIndex].Cells[0].Value.ToString();
             string a = UsersGridView.Rows[rowIndex].Cells[1].Value.ToString();
             string t = UsersGridView.Rows[rowIndex].Cells[2].Value.ToString();

@@ -29,8 +29,7 @@ namespace CourseWork
             try
             {
                 Sales who = new Sales(textBox1.Text, comboBox1.Text, textBox3.Text, Int32.Parse(textBox4.Text), comboBox2.Text);
-                if (MainForm.checkingLogin(textBox1.Text) && MainForm.checkingAddress(comboBox1.Text) && MainForm.checkingNameOfProduct(textBox3.Text) && MainForm.checkRangeOfPrice(Int32.Parse(textBox4.Text)) && MainForm.checkTypeOfMethod(comboBox2.Text)) return who;
-                else return null;
+                return who;
             }
             catch (Exception)
             {

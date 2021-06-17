@@ -93,7 +93,7 @@ namespace CourseWork
 
         private Node Delete(Node current, string target)
         {
-            Node parent;
+ Node parent;
             if (current == null)
             { return null; }
             else
@@ -185,7 +185,6 @@ namespace CourseWork
                     current = current.right;
                 }
             }
-            MessageBox.Show($"Сравнений - {compare}");
             return false;
         }
 

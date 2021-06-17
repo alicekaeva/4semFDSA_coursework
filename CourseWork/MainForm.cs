@@ -60,7 +60,7 @@ namespace CourseWork
             }
             catch (Exception)
             {
-                MessageBox.Show("Ошибка входных данных");
+                MessageBox.Show("Ошибка входных данных при чтении из файла");
             }
             finally
             {
@@ -79,7 +79,7 @@ namespace CourseWork
             }
             catch (Exception)
             {
-                MessageBox.Show("Ошибка входных данных");
+                MessageBox.Show("Ошибка входных данных при чтении из файла");
             }
             finally
             {

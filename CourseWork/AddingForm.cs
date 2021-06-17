@@ -25,8 +25,16 @@ namespace CourseWork
 
         public LA make()
         {
-            LA who = new LA(textBox1.Text, comboBox1.Text);
-            return who;
+            try
+            {
+                LA who = new LA(textBox1.Text, comboBox1.Text);
+                if (who.login != "" && who.address != "") return who;
+                else return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

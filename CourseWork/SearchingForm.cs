@@ -25,8 +25,16 @@ namespace CourseWork
 
         public string make()
         {
-            string who = textBox1.Text;
-            return who;
+            try
+            {
+                string who = textBox1.Text;
+                if (who != "") return who;
+                else return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

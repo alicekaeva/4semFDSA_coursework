@@ -47,17 +47,21 @@ namespace CourseWork
             if (dialogResult == DialogResult.OK)
             {
                 LA a = addForm.make();
-                if (MainForm.UHT.add(a))
+                if (a != null)
                 {
-                    MessageBox.Show($"{a.login} был добавлен");
-                    using (StreamWriter sw = File.AppendText("user.txt"))
+                    if (MainForm.UHT.add(a))
                     {
-                        sw.WriteLine($"{a.login}|{a.address}");
-                        sw.Close();
+                        MessageBox.Show($"{a.login} был добавлен");
+                        using (StreamWriter sw = File.AppendText("user.txt"))
+                        {
+                            sw.WriteLine($"{a.login}|{a.address}");
+                            sw.Close();
+                        }
+                        string[] row1 = new string[] { MainForm.UHT.hashFunc(a.login).ToString(), a.login, a.address };
+                        UsersGridView.Rows.Add(row1);
                     }
-                    string[] row1 = new string[] { MainForm.UHT.hashFunc(a.login).ToString(), a.login, a.address };
-                    UsersGridView.Rows.Add(row1);
                 }
+                else MessageBox.Show("Поле оказалось пустым");
             }
         }
 
@@ -69,14 +73,18 @@ namespace CourseWork
             if (dialogResult == DialogResult.OK)
             {
                 string c = seaForm.make();
-                if (MainForm.UHT.searchByLogin(c))
+                if (c != null)
                 {
-                    for (int i = 0; i < UsersGridView.Rows.Count - 1; i++)
+                    if (MainForm.UHT.searchByLogin(c))
                     {
-                        string l = UsersGridView.Rows[i].Cells[1].Value.ToString();
-                        if (l == c) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                        for (int i = 0; i < UsersGridView.Rows.Count - 1; i++)
+                        {
+                            string l = UsersGridView.Rows[i].Cells[1].Value.ToString();
+                            if (l == c) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                        }
                     }
                 }
+                else MessageBox.Show("Поле оказалось пустым");
             }
         }
 
@@ -86,6 +94,11 @@ namespace CourseWork
             if (MessageBox.Show("Согласны ли вы, удаляя пользователя из этой хеш-таблицы, удалить ее в общем списке?", "Удалить пользователя", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 int rowIndex = UsersGridView.CurrentCell.RowIndex;
+                if (UsersGridView.Rows[rowIndex].Cells[0].Value == null)
+                {
+                    MessageBox.Show("Невозможно удалить пустую строку");
+                    return;
+                }
                 string l = UsersGridView.Rows[rowIndex].Cells[1].Value.ToString();
                 string a = UsersGridView.Rows[rowIndex].Cells[2].Value.ToString();
                 if (MainForm.UHT.delete(new LA(l, a), MainForm.salesList, MainForm.tree)) UsersGridView.Rows.RemoveAt(rowIndex);

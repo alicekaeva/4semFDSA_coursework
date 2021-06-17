@@ -153,7 +153,6 @@ namespace CourseWork
                 current = current.next;
             }
             MessageBox.Show($"{u} не был найден");
-            MessageBox.Show($"Сравнений - {compare}");
             return null;
         }
 
