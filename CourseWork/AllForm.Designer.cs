@@ -33,14 +33,14 @@ namespace CourseWork
             this.BackToTheMenu = new System.Windows.Forms.Button();
             this.searchingButton = new System.Windows.Forms.Button();
             this.addingButton = new System.Windows.Forms.Button();
-            this.UsersGridView = new System.Windows.Forms.DataGridView();
+            UsersGridView = new System.Windows.Forms.DataGridView();
             this.Login = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Way = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.deletionButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.UsersGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(UsersGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // BackToTheMenu
@@ -78,27 +78,30 @@ namespace CourseWork
             // 
             // UsersGridView
             // 
-            this.UsersGridView.BackgroundColor = System.Drawing.Color.PaleTurquoise;
-            this.UsersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.UsersGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            UsersGridView.AllowUserToAddRows = false;
+            UsersGridView.BackgroundColor = System.Drawing.Color.PaleTurquoise;
+            UsersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            UsersGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Login,
             this.Address,
             this.Item,
             this.Price,
             this.Way});
-            this.UsersGridView.GridColor = System.Drawing.Color.PaleTurquoise;
-            this.UsersGridView.Location = new System.Drawing.Point(422, 102);
-            this.UsersGridView.Name = "UsersGridView";
-            this.UsersGridView.RowHeadersWidth = 82;
-            this.UsersGridView.RowTemplate.Height = 41;
-            this.UsersGridView.Size = new System.Drawing.Size(1200, 746);
-            this.UsersGridView.TabIndex = 6;
+            UsersGridView.GridColor = System.Drawing.Color.PaleTurquoise;
+            UsersGridView.Location = new System.Drawing.Point(422, 102);
+            UsersGridView.Name = "UsersGridView";
+            UsersGridView.ReadOnly = true;
+            UsersGridView.RowHeadersWidth = 82;
+            UsersGridView.RowTemplate.Height = 41;
+            UsersGridView.Size = new System.Drawing.Size(1200, 746);
+            UsersGridView.TabIndex = 6;
             // 
             // Login
             // 
             this.Login.HeaderText = "Логин";
             this.Login.MinimumWidth = 10;
             this.Login.Name = "Login";
+            this.Login.ReadOnly = true;
             this.Login.Width = 240;
             // 
             // Address
@@ -106,6 +109,7 @@ namespace CourseWork
             this.Address.HeaderText = "Адрес";
             this.Address.MinimumWidth = 10;
             this.Address.Name = "Address";
+            this.Address.ReadOnly = true;
             this.Address.Width = 240;
             // 
             // Item
@@ -113,6 +117,7 @@ namespace CourseWork
             this.Item.HeaderText = "Товар";
             this.Item.MinimumWidth = 10;
             this.Item.Name = "Item";
+            this.Item.ReadOnly = true;
             this.Item.Width = 240;
             // 
             // Price
@@ -120,6 +125,7 @@ namespace CourseWork
             this.Price.HeaderText = "Цена";
             this.Price.MinimumWidth = 10;
             this.Price.Name = "Price";
+            this.Price.ReadOnly = true;
             this.Price.Width = 180;
             // 
             // Way
@@ -127,6 +133,7 @@ namespace CourseWork
             this.Way.HeaderText = "Способ оплаты";
             this.Way.MinimumWidth = 10;
             this.Way.Name = "Way";
+            this.Way.ReadOnly = true;
             this.Way.Width = 240;
             // 
             // deletionButton
@@ -150,12 +157,12 @@ namespace CourseWork
             this.Controls.Add(this.BackToTheMenu);
             this.Controls.Add(this.searchingButton);
             this.Controls.Add(this.addingButton);
-            this.Controls.Add(this.UsersGridView);
+            this.Controls.Add(UsersGridView);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AllForm";
             this.Text = "Общая структура";
             this.Load += new System.EventHandler(this.AllForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.UsersGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(UsersGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -171,6 +178,6 @@ namespace CourseWork
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn Way;
         private System.Windows.Forms.Button deletionButton;
-        public System.Windows.Forms.DataGridView UsersGridView;
+        public static System.Windows.Forms.DataGridView UsersGridView;
     }
 }

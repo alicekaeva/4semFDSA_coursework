@@ -37,11 +37,6 @@ namespace CourseWork
         }
         public bool delete(LA u, List<Sales> s,LAavlTree t)
         {
-            int first = s.Count();
-            t.Delete(u.login);
-            s.RemoveAll(i => i.login == u.login && i.address == u.address);
-            int last = s.Count();
-            MessageBox.Show($"Из общей структуры было удалено {first - last} записей");
             string tempFile = Path.GetTempFileName();
             string whatToDelete = u.login + "|" + u.address;
             using (var sr = new StreamReader("user.txt"))
@@ -50,24 +45,33 @@ namespace CourseWork
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (line != whatToDelete)
-                        sw.WriteLine(line);
+                    if (line != whatToDelete) sw.WriteLine(line);
                 }
             }
             File.Delete("user.txt");
             File.Move(tempFile, "user.txt");
-            using (var sr = new StreamReader("sales.txt"))
-            using (var sw = new StreamWriter(tempFile))
+            int first = s.Count();
+            t.Delete(u.login);
+            for (int i = 0; i < s.Count; i++)
             {
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    if (line != whatToDelete)
-                        sw.WriteLine(line);
+                if (s[i].login == u.login && s[i].address == u.address) {
+                    whatToDelete = s[i].login + "|" + s[i].address + "|" + s[i].nameOfProduct + "|" + s[i].price + "|" + s[i].typeOfPayment;
+                    using (var sr = new StreamReader("sales.txt"))
+                    using (var sw = new StreamWriter(tempFile))
+                    {
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            if (line != whatToDelete) sw.WriteLine(line);
+                        }
+                    }
+                    File.Delete("sales.txt");
+                    File.Move(tempFile, "sales.txt");
                 }
             }
-            File.Delete("sales.txt");
-            File.Move(tempFile, "sales.txt");
+            s.RemoveAll(i => i.login == u.login && i.address == u.address);
+            int last = s.Count();
+            MessageBox.Show($"Из общей структуры было удалено {first - last} записей");
             return hashT[hashFunc(u.login)].deleteGivenNode(u);
         }
         public bool searchByLogin(string u)

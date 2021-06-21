@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -23,7 +24,7 @@ namespace CourseWork
             }
         }
 
-        Node root;
+        public static Node root;
 
         public void Add(string data, Sales i)
         {
@@ -44,6 +45,11 @@ namespace CourseWork
             {
                 current = n;
                 return current;
+            }
+            else if (String.Compare(n.data, current.data) == 0)
+            {
+                current.left = RecursiveInsert(current.left, n);
+                current = balance_tree(current);
             }
             else if (String.Compare(n.data, current.data) < 0)
             {
@@ -93,7 +99,7 @@ namespace CourseWork
 
         private Node Delete(Node current, string target)
         {
- Node parent;
+            Node parent;
             if (current == null)
             { return null; }
             else
@@ -161,31 +167,23 @@ namespace CourseWork
             return current;
         }
 
-        public bool Contains(string value)
+        public virtual void Contains(Node current, string value, ref int count)
         {
-            int compare = 0;
-            Node current = root;
-            while (current != null)
+            if (current != null)
             {
-                int comparison = String.Compare(value, current.data);
-                if (comparison == 0)
+                count++;
+                if (current.data == value)
                 {
-                    compare++;
-                    MessageBox.Show($"Сравнений - {compare}");
-                    return true;
+                    for (int i = 0; i < AllForm.UsersGridView.Rows.Count; i++)
+                    {
+                        string l = AllForm.UsersGridView.Rows[i].Cells[0].Value.ToString();
+                        if (l == value) AllForm.UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                    }
+                    MessageBox.Show($"{count} - сравнений");
                 }
-                else if (comparison < 0)
-                {
-                    compare++;
-                    current = current.left;
-                }
-                else
-                {
-                    compare++;
-                    current = current.right;
-                }
+                if (String.Compare(value, current.data) <= 0) Contains(current.left, value, ref count);
+                if (String.Compare(value, current.data) >= 0) Contains(current.right, value, ref count);
             }
-            return false;
         }
 
         private int max(int l, int r)

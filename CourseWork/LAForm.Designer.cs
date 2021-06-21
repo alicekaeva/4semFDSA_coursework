@@ -43,6 +43,7 @@ namespace CourseWork
             // 
             // UsersGridView
             // 
+            this.UsersGridView.AllowUserToAddRows = false;
             this.UsersGridView.BackgroundColor = System.Drawing.Color.PaleTurquoise;
             this.UsersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.UsersGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -52,6 +53,7 @@ namespace CourseWork
             this.UsersGridView.GridColor = System.Drawing.Color.PaleTurquoise;
             this.UsersGridView.Location = new System.Drawing.Point(426, 114);
             this.UsersGridView.Name = "UsersGridView";
+            this.UsersGridView.ReadOnly = true;
             this.UsersGridView.RowHeadersWidth = 82;
             this.UsersGridView.RowTemplate.Height = 41;
             this.UsersGridView.Size = new System.Drawing.Size(1200, 746);
@@ -62,6 +64,7 @@ namespace CourseWork
             this.Hash.HeaderText = "Хеш";
             this.Hash.MinimumWidth = 10;
             this.Hash.Name = "Hash";
+            this.Hash.ReadOnly = true;
             this.Hash.Width = 400;
             // 
             // Login
@@ -69,6 +72,7 @@ namespace CourseWork
             this.Login.HeaderText = "Логин";
             this.Login.MinimumWidth = 10;
             this.Login.Name = "Login";
+            this.Login.ReadOnly = true;
             this.Login.Width = 400;
             // 
             // Address
@@ -76,6 +80,7 @@ namespace CourseWork
             this.Address.HeaderText = "Адрес";
             this.Address.MinimumWidth = 10;
             this.Address.Name = "Address";
+            this.Address.ReadOnly = true;
             this.Address.Width = 400;
             // 
             // addingButton

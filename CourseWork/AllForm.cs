@@ -61,38 +61,24 @@ namespace CourseWork
             }
         }
 
-        private void searchingButton_Click(object sender, EventArgs e)
+        private  void searchingButton_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < UsersGridView.Rows.Count - 1; i++) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
+            int count = 0;
+            for (int i = 0; i < UsersGridView.Rows.Count; i++) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
             SearchingForm seaForm = new SearchingForm();
             DialogResult dialogResult = seaForm.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
                 string c = seaForm.make();
-                if (c != null)
-                {
-                    if (MainForm.tree.Contains(c))
-                    {
-                        for (int i = 0; i < UsersGridView.Rows.Count - 1; i++)
-                        {
-                            string l = UsersGridView.Rows[i].Cells[0].Value.ToString();
-                            if (l == c) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
-                        }
-                    }
-                    else MessageBox.Show($"{c} не был найден");
-                } else MessageBox.Show("Поле оказалось пустым");
+                if(c != null) MainForm.tree.Contains(LAavlTree.root, c, ref count);
+                else MessageBox.Show("Поле оказалось пустым");
             }
         }
 
         private void deletionButton_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < UsersGridView.Rows.Count - 1; i++) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
+            for (int i = 0; i < UsersGridView.Rows.Count; i++) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.White;
             int rowIndex = UsersGridView.CurrentCell.RowIndex;
-            if (UsersGridView.Rows[rowIndex].Cells[0].Value == null)
-            {
-                MessageBox.Show("Невозможно удалить пустую строку");
-                return;
-            }
             string l = UsersGridView.Rows[rowIndex].Cells[0].Value.ToString();
             string a = UsersGridView.Rows[rowIndex].Cells[1].Value.ToString();
             string t = UsersGridView.Rows[rowIndex].Cells[2].Value.ToString();

@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 namespace CourseWork
 {
+
     public class node
     {
         public LA data;
@@ -16,6 +17,8 @@ namespace CourseWork
 
     public class LADoublyLL
     {
+        public static int compare;
+
         public node head;
 
         public LADoublyLL()
@@ -25,12 +28,12 @@ namespace CourseWork
 
         public bool insert(LA u)
         {
-            if (search(u))
+            if (searchByLogin(u.login) != null)
             {
                 MessageBox.Show($"{u.login} уже добавлен");
                 return false;
             }
-            else if (checkingLogin(u.login) && checkingAddress(u.address) && !(search(u)))
+            else if (checkingLogin(u.login) && checkingAddress(u.address) && searchByLogin(u.login) == null)
             {
                 node newNode = new node();
                 newNode.data = u;
@@ -139,20 +142,18 @@ namespace CourseWork
 
         public LA searchByLogin(string u)
         {
-            int compare = 0;
+            compare = 0;
             node current = head;
             while (current != null)
             {
                 if (String.Compare(current.data.login, u) == 0)
                 {
                     compare++;
-                    MessageBox.Show($"Сравнений - {compare}");
                     return current.data;
                 }
                 compare++;
                 current = current.next;
             }
-            MessageBox.Show($"{u} не был найден");
             return null;
         }
 
@@ -160,21 +161,14 @@ namespace CourseWork
         {
             if (s.Length <= 30)
             {
-                if ((s[0] >= 'A' && s[0] <= 'Z') || (s[0] >= 'a' && s[0] <= 'z'))
+                for (int i = 0; i < s.Length; i++)
                 {
-                    for (int i = 1; i < s.Length; i++)
+                    if (!((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z') || s[i] == '.' || s[i] == '_' || (s[i] >= '0' && s[i] <= '9')))
                     {
-                        if (!((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z') || s[i] == '.' || s[i] == '_' || (s[i] >= '0' && s[i] <= '9')))
-                        {
-                            return false;
-                        }
+                        return false;
                     }
-                    return true;
                 }
-                else
-                {
-                    return false;
-                }
+                return true;
             }
             else return false;
         }
