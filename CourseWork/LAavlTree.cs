@@ -93,7 +93,7 @@ namespace CourseWork
         }
 
         public void Delete(string target)
-        {//and here
+        {
             root = Delete(root, target);
         }
 
@@ -139,28 +139,28 @@ namespace CourseWork
                 //if target is found
                 else
                 {
-                    if (current.right != null)
+                    if (current.left != null)
                     {
                         //delete its inorder successor
-                        parent = current.right;
-                        while (parent.left != null)
+                        parent = current.left;
+                        while (parent.right != null)
                         {
-                            parent = parent.left;
+                            parent = parent.right;
                         }
                         current.data = parent.data;
-                        current.right = Delete(current.right, parent.data);
-                        if (balance_factor(current) == 2)//rebalancing
+                        current.left = Delete(current.left, parent.data);
+                        if (balance_factor(current) == -2)//rebalancing
                         {
-                            if (balance_factor(current.left) >= 0)
+                            if (balance_factor(current.right) <= 0)
                             {
-                                current = RotateLL(current);
+                                current = RotateRR(current);
                             }
-                            else { current = RotateLR(current); }
+                            else { current = RotateRL(current); }
                         }
                     }
                     else
                     {   //if current.left != null
-                        return current.left;
+                        return current.right;
                     }
                 }
             }

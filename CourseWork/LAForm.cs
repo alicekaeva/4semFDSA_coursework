@@ -60,8 +60,7 @@ namespace CourseWork
                         string[] row1 = new string[] { MainForm.UHT.hashFunc(a.login).ToString(), a.login, a.address };
                         UsersGridView.Rows.Add(row1);
                     }
-                }
-                else MessageBox.Show("Поле оказалось пустым");
+                } else MessageBox.Show("Поле оказалось пустым");
             }
         }
 
@@ -84,8 +83,7 @@ namespace CourseWork
                             if (l == c) UsersGridView.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
                         }
                     }
-                }
-                else MessageBox.Show("Поле оказалось пустым");
+                } else MessageBox.Show("Поле оказалось пустым");
             }
         }
 

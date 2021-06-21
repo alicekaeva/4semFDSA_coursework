@@ -39,10 +39,7 @@ namespace CourseWork
                 newNode.data = u;
                 newNode.next = null;
                 newNode.prev = null;
-                if (head == null)
-                {
-                    head = newNode;
-                }
+                if (head == null) head = newNode;
                 else
                 {
                     if (String.Compare(head.data.login, newNode.data.login) > 0 || String.Compare(head.data.login, newNode.data.login) == 0) // equal to head.data > newNode.data || head.data == newNode.data
@@ -55,17 +52,13 @@ namespace CourseWork
                     {
                         node temp = new node();
                         temp = head;
-                        while (temp.next != null && String.Compare(temp.next.data.login, newNode.data.login) < 0) // equal to temp.next.data < newNode.data
-                        {
-                            temp = temp.next;
-                        }
+                        while (temp.next != null && String.Compare(temp.next.data.login, newNode.data.login) < 0) temp = temp.next; // equal to temp.next.data < newNode.data
                         newNode.next = temp.next;
                         if (temp.next != null) newNode.next.prev = newNode;
                         temp.next = newNode;
                         newNode.prev = temp;
                     }
-                }
-                return true;
+                } return true;
             }
             else
             {
@@ -76,20 +69,11 @@ namespace CourseWork
 
         public node deleteNode(node head, node del)
         {
-            if (head == null || del == null)
-                return null;
-
-            if (head == del)
-                head = del.next;
-
-            if (del.next != null)
-                del.next.prev = del.prev;
-
-            if (del.prev != null)
-                del.prev.next = del.next;
-
+            if (head == null || del == null) return null;
+            if (head == del) head = del.next;
+            if (del.next != null) del.next.prev = del.prev;
+            if (del.prev != null) del.prev.next = del.next;
             del = null;
-
             return head;
         }
 
@@ -97,35 +81,26 @@ namespace CourseWork
         {
             if (search(u))
             {
-                if (head == null)
-                    return false;
+                if (head == null) return false;
                 node current = head;
 
                 if (String.Compare(current.data.login, u.login) == 0) // equal to current.data == n
                 {
                     head = head.next;
                     current = null;
-                    if (head != null)
-                    {
-                        head.prev = null;
-                    }
+                    if (head != null) head.prev = null;
                     MessageBox.Show($"{u.login} был удален");
                     return true;
                 }
                 else
                 {
-                    while (current != null && String.Compare(current.data.login, u.login) != 0) // equal to current.data != n
-                    {
-                        current = current.next;
-                    }
-                    if (current == null)
-                        return false;
+                    while (current != null && String.Compare(current.data.login, u.login) != 0) current = current.next; // equal to current.data != n
+                    if (current == null) return false;
                     deleteNode(head, current);
                     MessageBox.Show($"{u.login} был удален");
                     return true;
                 }
-            }
-            else return false;
+            } else return false;
         }
 
         public bool search(LA u)
@@ -133,8 +108,7 @@ namespace CourseWork
             node current = head;
             while (current != null)
             {
-                if ((current.data.address == u.address) && String.Compare(current.data.login, u.login) == 0) // equal to current.data == x
-                    return true;
+                if ((current.data.address == u.address) && String.Compare(current.data.login, u.login) == 0) return true; // equal to current.data == x
                 current = current.next;
             }
             return false;
@@ -161,26 +135,16 @@ namespace CourseWork
         {
             if (s.Length <= 30)
             {
-                for (int i = 0; i < s.Length; i++)
-                {
-                    if (!((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z') || s[i] == '.' || s[i] == '_' || (s[i] >= '0' && s[i] <= '9')))
-                    {
-                        return false;
-                    }
-                }
+                for (int i = 0; i < s.Length; i++) if (!((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z') || s[i] == '.' || s[i] == '_' || (s[i] >= '0' && s[i] <= '9'))) return false;
                 return true;
-            }
-            else return false;
+            } else return false;
         }
 
         public bool checkingAddress(string s)
         {
             string[] dormitory = new string[] { "город", "корпус 11", "корпус 10", "корпус 9", "корпус 8.1", "корпус 8.2", "корпус 7.1", "корпус 7.2", "корпус 6.1", "корпус 6.2", "корпус 1.10", "корпус 2.1", "корпус 2.2", "корпус 2.3", "корпус 2.4", "корпус 2.5", "корпус 2.6", "корпус 2.7" };
             int count = 0;
-            for (int i = 0; i < dormitory.Length; i++)
-            {
-                if (s == dormitory[i]) count++;
-            }
+            for (int i = 0; i < dormitory.Length; i++) if (s == dormitory[i]) count++;
             if (count == 1) return true;
             else return false;
         }

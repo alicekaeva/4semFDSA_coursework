@@ -10,8 +10,10 @@ namespace CourseWork
 {
    public class LAHashTable
     {
+
         static int n = 10;
         public LADoublyLL[] hashT;
+
         public LAHashTable()
         {
             hashT = new LADoublyLL[n];
@@ -20,6 +22,7 @@ namespace CourseWork
                 hashT[i] = new LADoublyLL();
             }
         }
+
         public int hashFunc(string u)
         {
             int nx = 0;
@@ -30,11 +33,13 @@ namespace CourseWork
             int index = nx % n; ;
             return index;
         }
+
         public bool add(LA u)
         {
             if (hashT[hashFunc(u.login)].insert(u)) return true;
             else return false;
         }
+
         public bool delete(LA u, List<Sales> s,LAavlTree t)
         {
             string tempFile = Path.GetTempFileName();
@@ -74,11 +79,13 @@ namespace CourseWork
             MessageBox.Show($"Из общей структуры было удалено {first - last} записей");
             return hashT[hashFunc(u.login)].deleteGivenNode(u);
         }
+
         public bool searchByLogin(string u)
         {
             if (hashT[hashFunc(u)].searchByLogin(u) == null) return false;
             else return true;
         }
+
         public bool search(LA u)
         {
             if (hashT[hashFunc(u.login)].search(u) == false) return false;

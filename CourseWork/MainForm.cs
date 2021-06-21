@@ -111,6 +111,7 @@ namespace CourseWork
         {
             return (s == "безналичный" || s == "наличный");
         }
+
         public static bool checkingLogin(string s)
         {
             if (s.Length <= 30)

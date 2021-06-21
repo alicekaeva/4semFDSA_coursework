@@ -56,8 +56,7 @@ namespace CourseWork
                     }
                     else if (MainForm.UHT.search(u) && MainForm.salesList.Contains(a)) MessageBox.Show($"{a.login} с товаром {a.nameOfProduct} уже добавлен");
                     else MessageBox.Show("Пользователь не содерижится в списке пользователей");
-                }
-                else MessageBox.Show("Поле оказалось пустым или содержит некорректные данные");
+                } else MessageBox.Show("Поле оказалось пустым или содержит некорректные данные");
             }
         }
 
