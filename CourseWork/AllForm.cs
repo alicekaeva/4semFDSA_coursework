@@ -84,8 +84,9 @@ namespace CourseWork
             string p = UsersGridView.Rows[rowIndex].Cells[3].Value.ToString();
             string m = UsersGridView.Rows[rowIndex].Cells[4].Value.ToString();
             MessageBox.Show($"{l} c товаром {t} был удален");
-            MainForm.salesList.Remove(new Sales(l, a, t, Int32.Parse(p), m));
-            MainForm.tree.Delete(l);
+            Sales why = new Sales(l, a, t, Int32.Parse(p), m);
+            MainForm.tree.Delete(l, why);
+            MainForm.salesList.Remove(why);
             string tempFile = Path.GetTempFileName();
             string whatToDelete = l + "|" + a + "|" + t + "|" + p + "|" + m;
             using (var sr = new StreamReader("sales.txt"))

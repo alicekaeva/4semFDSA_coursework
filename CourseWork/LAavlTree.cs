@@ -92,12 +92,12 @@ namespace CourseWork
             return current;
         }
 
-        public void Delete(string target)
+        public void Delete(string target, Sales del)
         {
-            root = Delete(root, target);
+            root = Delete(root, target, del);
         }
 
-        private Node Delete(Node current, string target)
+        private Node Delete(Node current, string target, Sales del)
         {
             Node parent;
             if (current == null)
@@ -105,39 +105,45 @@ namespace CourseWork
             else
             {
                 //left subtree
-                if (String.Compare(target, current.data) < 0)
+                if (String.Compare(target, current.data) <= 0)
                 {
-                    current.left = Delete(current.left, target);
-                    if (balance_factor(current) == -2)//here
+                    if (!(current.position.Equals(del)))
                     {
-                        if (balance_factor(current.right) <= 0)
+                        current.left = Delete(current.left, target, del);
+                        if (balance_factor(current) == -2)//here
                         {
-                            current = RotateRR(current);
-                        }
-                        else
-                        {
-                            current = RotateRL(current);
+                            if (balance_factor(current.right) <= 0)
+                            {
+                                current = RotateRR(current);
+                            }
+                            else
+                            {
+                                current = RotateRL(current);
+                            }
                         }
                     }
                 }
                 //right subtree
-                else if (String.Compare(target, current.data) > 0)
+                else if (String.Compare(target, current.data) >= 0)
                 {
-                    current.right = Delete(current.right, target);
-                    if (balance_factor(current) == 2)
+                    if (!(current.position.Equals(del)))
                     {
-                        if (balance_factor(current.left) >= 0)
+                        current.right = Delete(current.right, target, del);
+                        if (balance_factor(current) == 2)
                         {
-                            current = RotateLL(current);
-                        }
-                        else
-                        {
-                            current = RotateLR(current);
+                            if (balance_factor(current.left) >= 0)
+                            {
+                                current = RotateLL(current);
+                            }
+                            else
+                            {
+                                current = RotateLR(current);
+                            }
                         }
                     }
                 }
                 //if target is found
-                else
+                else if (String.Compare(target, current.data) == 0 && current.position.Equals(del))
                 {
                     if (current.left != null)
                     {
@@ -148,7 +154,8 @@ namespace CourseWork
                             parent = parent.right;
                         }
                         current.data = parent.data;
-                        current.left = Delete(current.left, parent.data);
+                        current.position = parent.position;
+                        current.left = Delete(current.left, parent.data,parent.position);
                         if (balance_factor(current) == -2)//rebalancing
                         {
                             if (balance_factor(current.right) <= 0)

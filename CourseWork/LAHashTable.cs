@@ -56,7 +56,7 @@ namespace CourseWork
             File.Delete("user.txt");
             File.Move(tempFile, "user.txt");
             int first = s.Count();
-            t.Delete(u.login);
+            for (int i=0;i< s.Count;i++) if (s[i].login == u.login && s[i].address == u.address) t.Delete(u.login, s[i]);
             for (int i = 0; i < s.Count; i++)
             {
                 if (s[i].login == u.login && s[i].address == u.address) {
